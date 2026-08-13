@@ -1569,7 +1569,7 @@ tr:hover .fc {
             <label class="form-label">Recurrence</label>
             <select id="ce-recur" onchange="onCalRecurChange()">
               <option>Once</option><option>Daily</option>
-              <option>Weekly</option><option>Monthly</option><option>Custom</option>
+              <option>Weekly</option><option>Monthly</option><option>Yearly</option><option>Custom</option>
             </select>
           </div>
           <div class="form-group" id="ce-custom-reminder-wrap" style="display:none;">
@@ -2972,6 +2972,79 @@ function importFullBackup() {
   input.click();
 }
 
+
+// ── Dashboard card click → navigate to Task View with filter ─────
+function dashCardClick(filterType) {
+  // Switch to Task View tab
+  showPage('task-view');
+  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+  const tvTab = document.querySelector('[data-tab="task-view"]');
+  if(tvTab) tvTab.classList.add('active');
+
+  // Reset all filters first
+  const tvSearch   = document.getElementById('tv-search');
+  const tvStatus   = document.getElementById('tv-status');
+  const tvPriority = document.getElementById('tv-priority');
+  const tvEsc      = document.getElementById('tv-escalation');
+  const tvDeadline = document.getElementById('tv-deadline');
+  if(tvSearch)   tvSearch.value   = '';
+  if(tvStatus)   tvStatus.value   = 'All';
+  if(tvPriority) tvPriority.value = 'All';
+  if(tvEsc)      tvEsc.value      = 'All';
+  if(tvDeadline) tvDeadline.value = '';
+
+  const today = todayStr();
+  const in7   = new Date(); in7.setDate(in7.getDate()+7);
+  const in7s  = dateStr(in7);
+
+  // Apply specific filter based on card clicked
+  switch(filterType) {
+    case 'active':
+      if(tvStatus) tvStatus.value = 'All';
+      // Show all non-done non-cancelled
+      _dashFilter = t => t.status !== 'Done' && t.status !== 'Cancelled';
+      break;
+    case 'overdue':
+      _dashFilter = t => t.deadline && t.deadline < today && t.status !== 'Done' && t.status !== 'Cancelled';
+      break;
+    case 'duetoday':
+      _dashFilter = t => t.deadline === today && t.status !== 'Done' && t.status !== 'Cancelled';
+      break;
+    case 'due7':
+      _dashFilter = t => t.deadline && t.deadline > today && t.deadline <= in7s && t.status !== 'Done' && t.status !== 'Cancelled';
+      break;
+    case 'blocked':
+      _dashFilter = t => (t.escalation||'').toLowerCase()==='blocked' || (t.dependency||'').trim()!=='';
+      break;
+    case 'p1':
+      _dashFilter = t => (t.priority||'').includes('P1') && t.status !== 'Done' && t.status !== 'Cancelled';
+      break;
+    case 'done':
+      _dashFilter = t => t.status === 'Done';
+      break;
+    default:
+      _dashFilter = null;
+  }
+
+  // Show a filter indicator
+  const indicator = document.getElementById('tv-filter-indicator');
+  const labels = {
+    active:'Active Tasks', overdue:'Overdue Tasks', duetoday:'Due Today',
+    due7:'Due in 7 Days', blocked:'Blocked Tasks', p1:'P1 Critical Tasks', done:'Done This Week'
+  };
+  if(indicator) {
+    indicator.textContent = '🔍 Filtered: ' + (labels[filterType]||filterType);
+    indicator.style.display = 'inline-block';
+    const clearBtn = document.getElementById('tv-clear-filter');
+    if(clearBtn) clearBtn.style.display = 'inline-block';
+  }
+
+  renderTaskView();
+}
+
+// Global dashboard filter (applied in renderTaskView)
+let _dashFilter = null;
+
 function initFirebase() {
   hideLoadingOverlay();
   if(!isConfigured()){ showEl('setup-banner'); showScreen('auth'); return; }
@@ -3347,7 +3420,16 @@ function renderDashboard() {
     {lbl:'P1 Open',val:k.p1,sub:'Critical priority',kc:'var(--purple)'},
     {lbl:'Done This Week',val:k.dw,sub:'Closed this week',kc:'var(--green)'},
   ];
-  document.getElementById('kpi-grid').innerHTML=cards.map(c=>`<div class="kpi-card" style="--kc:${c.kc};" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform=''"><div class="kpi-label">${c.lbl}</div><div class="kpi-value">${c.val}</div><div class="kpi-sub">${c.sub}</div></div>`).join('');
+  const filterKeys=['active','overdue','duetoday','due7','blocked','p1','done'];
+  document.getElementById('kpi-grid').innerHTML=cards.map((c,i)=>`<div class="kpi-card" style="--kc:${c.kc};cursor:pointer;" 
+    onclick="_dashFilter=null;dashCardClick('${filterKeys[i]}')" 
+    onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 8px 24px rgba(0,0,0,.3)'" 
+    onmouseout="this.style.transform='';this.style.boxShadow=''">
+    <div class="kpi-label">${c.lbl}</div>
+    <div class="kpi-value">${c.val}</div>
+    <div class="kpi-sub">${c.sub}</div>
+    <div style="font-size:9px;color:var(--kc);margin-top:4px;opacity:.7;">Click to view →</div>
+  </div>`).join('');
 
   document.querySelector('#dash-dept-tbl tbody').innerHTML=calcDeptSummary(tasks).map(r=>`<tr><td style="font-weight:600;color:${(r.bl||r.ov||r.p1)?'var(--text)':'var(--text2)'};">${r.dept}</td>${nCell(r.open)}${nCell(r.ov,'c-red')}${nCell(r.d7,'c-amber')}${nCell(r.bl,'c-red')}${nCell(r.wt,'c-amber')}${nCell(r.p1,'c-purple')}<td>${bAction(r.action)}</td></tr>`).join('');
 
