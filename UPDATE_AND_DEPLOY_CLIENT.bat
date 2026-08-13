@@ -25,13 +25,10 @@ echo  File selected: %SELECTED_FILE%
 echo  Copying file...
 copy /Y "%SELECTED_FILE%" "%~dp0index.html"
 
-echo  Syncing with GitHub...
-git pull origin main --rebase
-
 echo  Deploying...
 git add -A
 git commit -m "Client dashboard update - %date% %time%"
-git push origin main
+git push origin main --force
 
 echo.
 echo  ============================================================
