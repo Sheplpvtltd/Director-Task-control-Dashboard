@@ -7,7 +7,7 @@ echo  ============================================================
 echo    SHEPL CLIENT DASHBOARD — UPDATE AND DEPLOY
 echo  ============================================================
 echo.
-echo  Press any key to select the client HTML file...
+echo  Press any key to select your file from Claude...
 pause > nul
 
 cd /d "%~dp0"
@@ -21,19 +21,21 @@ if "%SELECTED_FILE%"=="" (
 )
 
 echo.
-echo  Selected: %SELECTED_FILE%
-echo  Copying to deploy folder...
+echo  File selected: %SELECTED_FILE%
+echo  Copying file...
 copy /Y "%SELECTED_FILE%" "%~dp0index.html"
 
-echo  Deploying to GitHub...
+echo  Syncing with GitHub...
+git pull origin main --rebase
+
+echo  Deploying...
 git add -A
 git commit -m "Client dashboard update - %date% %time%"
 git push origin main
 
 echo.
 echo  ============================================================
-echo    DONE! CLIENT dashboard is now LIVE at:
-echo.
+echo    DONE! CLIENT dashboard is LIVE at:
 echo    https://sheplpvtltd.github.io/Director-Task-control-Dashboard/
 echo  ============================================================
 echo.
