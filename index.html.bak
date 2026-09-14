@@ -932,7 +932,6 @@ tr:hover .fc {
 #page-task-view .section-card { margin: 0 !important; border-radius: 0 !important; }
 
 </style>
-<script src="https://shone-core-dev.web.app/shone-sso.js" data-module="TASKS"></script>
 </head>
 <body>
 
@@ -2229,36 +2228,6 @@ function doSignOut() {
   tasks=[]; projects=[]; fbReady=false;
   showScreen('auth'); toast('Signed out.','success');
 }
-
-// ── SHONE single sign-on ────────────────────────────────────────────────────
-// Fires ONLY when this dashboard is opened inside SHONE (the SHONE shim dispatches it).
-// Opened by its own link or bookmark, nothing below ever runs and sign-in is unchanged.
-window.addEventListener('shone:token', function (ev) {
-  var done = ev.detail.done, fail = ev.detail.fail;
-  fetch(AUTH_URL + 'signInWithCustomToken?key=' + API_KEY, { method: 'POST', headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ token: ev.detail.token, returnSecureToken: true }) })
-    .then(function (r) { return r.json(); })
-    .then(function (data) {
-      if (data.error) throw new Error(friendlyErr(data));
-      // custom-token sign-in does not return the e-mail, so ask for the account record
-      return fetch(AUTH_URL + 'lookup?key=' + API_KEY, { method: 'POST', headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ idToken: data.idToken }) })
-        .then(function (r) { return r.json(); })
-        .then(function (info) {
-          var u = (info.users && info.users[0]) || {};
-          saveSession({ idToken: data.idToken, refreshToken: data.refreshToken, expiresIn: data.expiresIn, email: u.email },
-                      u.displayName || String(u.email || '').split('@')[0]);
-          currentUser = { email: savedEmail, displayName: savedName };
-          if (typeof setUserChip === 'function') setUserChip(currentUser);
-          showScreen('app'); startDB();
-          if (typeof resolveUserRole === 'function') resolveUserRole();
-          if (typeof applyRoleToUI === 'function') applyRoleToUI();
-          done('ok');
-        });
-    })
-    .catch(function (e) { fail(e); });
-});
-
 
 // ── DATABASE REST ─────────────────────────────────────────────
 
