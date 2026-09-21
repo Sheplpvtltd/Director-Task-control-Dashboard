@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en" data-theme="dark">
 <head>
 <meta charset="UTF-8">
@@ -936,6 +936,12 @@ tr:hover .fc {
 
 </style>
 <script src="https://shone-core-dev.web.app/shone-sso.js" data-module="TASKS"></script>
+<!-- SHONE directory (build 2026-09-21): live read-only view of SHONE's Project Master / User Master / Admin switches / permissions.
+     The Firebase compat SDK below is used ONLY by that directory connection — this dashboard keeps its own REST calls. -->
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<script src="https://shone-core-dev.web.app/shone-directory.js?v=13"></script>
 </head>
 <body>
 
@@ -1043,7 +1049,7 @@ tr:hover .fc {
   <header class="app-header">
     <div class="app-brand">
       <img src="data:image/gif;base64,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" alt="SH Engitech" style="width:36px;height:36px;border-radius:8px;object-fit:contain;background:#fff;padding:2px;flex-shrink:0;">
-      <div><div class="brand-title">Director Control Dashboard</div><div class="brand-sub">Task Management &amp; Execution System · build 2026-09-20</div></div>
+      <div><div class="brand-title">Director Control Dashboard</div><div class="brand-sub">Task Management &amp; Execution System · build 2026-09-21</div></div>
     </div>
     <div class="conn-pill conn-wait" id="conn-pill"><span class="conn-dot"></span><span id="conn-label">Connecting…</span></div>
     <div class="zoom-controls">
@@ -2193,6 +2199,7 @@ function doSignUp() {
 }
 
 function doSignOut() {
+  stopShoneDirectory();
   clearSession(); if(pollTimer){clearInterval(pollTimer);pollTimer=null;}
   tasks=[]; projects=[]; fbReady=false;
   showScreen('auth'); toast('Signed out.','success');
@@ -2226,6 +2233,118 @@ window.addEventListener('shone:token', function (ev) {
     })
     .catch(function (e) { fail(e); });
 });
+
+// ── SHONE DIRECTORY (build 2026-09-21, Option B — Director's decision 20-Sep-2026) ─────────────────────────
+// This dashboard keeps its own lists (projects / employees in its own database). In addition it READS SHONE live:
+// projects mapped to Task Control, people listed for Task Control, the three Admin switches and SHONE permissions.
+// Nothing from SHONE is written into this dashboard's database. Fail-open: no SHONE = dashboard behaves as before.
+const SHONE_MODULE = 'TASKS';
+const SD = () => (window.SHONE && window.SHONE.directory && window.SHONE.directory.ready) ? window.SHONE.directory : null;
+const shoneLocal = kind => { const d = SD(); return !d || d.localAllowed(kind); };          // Admin switch: true = may still create/edit here
+function shoneDecision(pageId, action){ const d = SD(); return (d && typeof d.decision === 'function') ? d.decision(pageId, action) : undefined; }
+function shoneColMode(pageId, col){ const d = SD(); return (d && typeof d.columnDecision === 'function') ? d.columnDecision(pageId, col) : undefined; }
+function shoneLock(what){ const d = window.SHONE && window.SHONE.directory; return (d && typeof d.lockNotice === 'function') ? d.lockNotice(what) : ('<div class="access-banner visible">🔒 This function is centrally managed from SHONE. ' + (what||'') + '</div>'); }
+function shoneBlocked(what){ toast('🔒 ' + what + ' is centrally managed from SHONE — please do it in SHONE.', 'error'); }
+// 'P-26004' and '26004' are the same project number (Task Control historically prefixed numbers with P-)
+function shoneKey(v){ return String(v == null ? '' : v).trim().toUpperCase().replace(/^P[-\s]*(?=\d)/, '').replace(/[^A-Z0-9]/g, ''); }
+function startShoneDirectory(){
+  try{
+    if(!window.SHONE || !window.SHONE.directory || typeof window.SHONE.directory.start !== 'function') return;
+    if(!isLoggedIn() && !refreshToken) return;
+    window.SHONE.directory.start({ moduleCode: SHONE_MODULE, getIdToken: () => new Promise((res, rej) => {
+      const to = setTimeout(() => rej(new Error('no dashboard login token')), 15000);
+      try{ withToken(t => { clearTimeout(to); res(t); }); }catch(e){ clearTimeout(to); rej(e); }
+    }) });
+  }catch(e){ console.warn('[SHONE directory] not started:', e); }
+}
+function stopShoneDirectory(){ try{ if(window.SHONE && window.SHONE.directory && typeof window.SHONE.directory.stop === 'function') window.SHONE.directory.stop(); }catch(e){} }
+let __shoneRerender = null;
+window.addEventListener('shone:directory', () => {
+  clearTimeout(__shoneRerender);
+  __shoneRerender = setTimeout(() => {
+    if(!currentUser) return;
+    applyShoneControls();
+    const active = document.querySelector('.nav-tab.active'); const tab = active ? active.dataset.tab : '';
+    if(tab === 'projects') renderProjects();
+    if(tab === 'employees'){ renderEmployees(); refreshEmpFilters(); }
+    populateProjectDropdown(); updateMPSTags(); renderAll();
+  }, 350);
+});
+let __allProjCache = null, __allEmpCache = null;
+/* PROJECTS = own list ∪ SHONE Project Master projects mapped to Task Control that are not held here (active only, marked SHONE) */
+function allProjects(){ if(__allProjCache) return __allProjCache; const r = allProjectsCompute(); __allProjCache = r; Promise.resolve().then(() => { __allProjCache = null; }); return r; }
+function allProjectsCompute(){
+  const d = SD(); if(!d) return projects;
+  const have = new Set(projects.map(p => shoneKey(p.projectNo)));
+  const extra = (d.projects || []).filter(p => p.projectNumber && p.isActive !== false && !have.has(shoneKey(p.projectNumber))).map(p => ({
+    id: 'SHONE-' + p.projectNumber, projectNo: p.projectNumber, projectName: p.projectName || '', clientName: p.client || '', description: '',
+    startDate: p.poDate || '', endDate: p.deliveryDate || '', status: 'Active', fromShone: true }));
+  return extra.length ? projects.concat(extra) : projects;
+}
+/* PEOPLE = own employee list ∪ people SHONE lists for Task Control who are not held here (by ID, e-mail or name; marked SHONE).
+   Access roles (Director / department) keep using the dashboard's own list only. */
+function allEmployees(){ if(__allEmpCache) return __allEmpCache; const r = allEmployeesCompute(); __allEmpCache = r; Promise.resolve().then(() => { __allEmpCache = null; }); return r; }
+function allEmployeesCompute(){
+  const d = SD(); if(!d) return employees;
+  const people = (d.modulePeople || []).filter(u => u.employeeName); if(!people.length) return employees;
+  const codes = new Set(employees.map(e => shoneKey(e.empCode)).filter(Boolean));
+  const mails = new Set(employees.map(e => String(e.email || '').trim().toLowerCase()).filter(Boolean));
+  const names = new Set(employees.map(e => String(e.name || '').trim().toLowerCase()).filter(Boolean));
+  const extra = people.filter(u => !(u.employeeId && codes.has(shoneKey(u.employeeId)))
+      && !(u.shoneLoginEmail && mails.has(String(u.shoneLoginEmail).toLowerCase())) && !(u.officialEmail && mails.has(String(u.officialEmail).toLowerCase()))
+      && !names.has(String(u.employeeName).trim().toLowerCase()))
+    .map(u => ({ id: 'SHONE-' + (u.employeeId || u.id), empCode: u.employeeId || '', name: u.employeeName, designation: u.designation || '', department: u.department || '',
+      email: u.officialEmail || u.shoneLoginEmail || '', mobile: '', reportingManager: '', status: u.isActive === false ? 'Inactive' : 'Active', isDirector: false, fromShone: true }));
+  return extra.length ? employees.concat(extra) : employees;
+}
+/* buttons, banners, tabs, columns — re-applied after every render and on every SHONE change */
+const SHONE_TASK_COLS = ['taskId','captureDate','task','department','concernedPerson','notes','status','followup','priority','deadline','taskType','owner','assignedBy','age','actions'];
+function shoneShow(sel, show){ document.querySelectorAll(sel).forEach(el => { el.style.display = show ? '' : 'none'; }); }
+function shoneBanner(pageId, id, show, text){
+  const page = document.getElementById(pageId); if(!page) return;
+  let el = document.getElementById(id);
+  if(!show){ if(el) el.remove(); return; }
+  if(!el){ el = document.createElement('div'); el.id = id; const anchor = page.querySelector('.page-sub') || page.firstElementChild; if(anchor && anchor.nextSibling) page.insertBefore(el, anchor.nextSibling); else page.prepend(el); }
+  el.innerHTML = shoneLock(text);
+}
+function applyShoneControls(){
+  const projLocal = shoneLocal('projects'), usersLocal = shoneLocal('users'), permLocal = shoneLocal('permissions');
+  const may = (page, action) => shoneDecision(page, action) !== false;
+  // Projects tab
+  shoneShow('#btn-add-project', projLocal && may('projects','add'));
+  shoneShow('#btn-proj-tpl', projLocal && may('projects','add'));
+  document.querySelectorAll('#proj-excel-file').forEach(i => { const l = i.closest('label'); if(l) l.style.display = (projLocal && may('projects','add')) ? '' : 'none'; });
+  shoneBanner('page-projects', 'shone-lock-projects', !projLocal, 'New projects and their identity (number, name, client, description) are managed in SHONE → Project Master. Status and dates can still be changed here; tasks can still be linked to every project.');
+  // Employees tab
+  shoneShow('#btn-add-emp', usersLocal && may('employees','add'));
+  shoneShow('#btn-emp-tpl', usersLocal && may('employees','add'));
+  document.querySelectorAll('#emp-excel-file').forEach(i => { const l = i.closest('label'); if(l) l.style.display = (usersLocal && may('employees','add')) ? '' : 'none'; });
+  shoneBanner('page-employees', 'shone-lock-users', !usersLocal || !permLocal,
+    (!usersLocal ? 'New employees and their identity (ID, name, designation, department, e-mail, Active/Inactive) are added and edited in SHONE → User Master. Mobile and reporting manager can still be edited here. ' : '') +
+    (!permLocal ? 'Access rights (★ Director) are managed in SHONE → Permission Management.' : ''));
+  // Task capture / exports
+  shoneShow('#btn-add-task', may('task-capture','add'));
+  shoneShow('#btn-excel-all, #btn-excel-dept', may('task-view','export') && may('task-capture','export'));
+  shoneShow('#btn-task-tpl', may('task-capture','add'));
+  document.querySelectorAll('#task-excel-file').forEach(i => { const l = i.closest('label'); if(l) l.style.display = may('task-capture','add') ? '' : 'none'; });
+  // Tabs denied in SHONE disappear; if the open tab is denied, go home
+  let activeDenied = false;
+  document.querySelectorAll('.nav-tab').forEach(t => { const denied = shoneDecision(t.dataset.tab, 'view') === false; if(denied && !t.classList.contains('shone-hidden')) t.classList.add('shone-hidden'); if(!denied) t.classList.remove('shone-hidden');
+    if(!t.classList.contains('cal-nav-tab-hidden')) t.style.display = denied ? 'none' : ''; if(denied && t.classList.contains('active')) activeDenied = true; });
+  if(activeDenied && shoneDecision('dashboard','view') !== false) showTab('dashboard');
+  // Task-table columns hidden in SHONE (never the three frozen ones on the left)
+  document.querySelectorAll('#page-task-capture table.task-table, #page-task-view table.task-table').forEach(tbl => {
+    const page = tbl.closest('#page-task-view') ? 'task-view' : 'task-capture';
+    SHONE_TASK_COLS.forEach((key, i) => { if(i < 3) return; const hide = shoneColMode(page, key) === 'hide';
+      tbl.querySelectorAll('tr').forEach(tr => { const cell = tr.children[i]; if(cell) cell.style.display = hide ? 'none' : ''; }); });
+  });
+  // header status
+  let st = document.getElementById('shone-conn');
+  const pill = document.getElementById('conn-pill');
+  if(!st && pill){ st = document.createElement('span'); st.id = 'shone-conn'; st.style.cssText = 'font-size:10px;color:var(--text3);margin-left:8px;white-space:nowrap;'; pill.insertAdjacentElement('afterend', st); }
+  if(st){ const d = window.SHONE && window.SHONE.directory; const off = ['projects','users','permissions'].filter(k => d && d.controls && d.controls[k] === false);
+    st.textContent = !d ? '' : d.ready ? ('🔗 SHONE · ' + (d.projects||[]).length + ' projects · ' + (d.modulePeople||[]).length + ' people' + (off.length ? ' · centrally managed: ' + off.join(', ') : '')) : (d.error ? '⚠️ SHONE not reachable — own lists in use' : (currentUser ? '… SHONE connecting' : '')); }
+}
 
 
 // ── DATABASE REST ─────────────────────────────────────────────
@@ -2670,7 +2789,7 @@ function toggleMPSPersonItem(name) {
 function renderMPSPersonPanel() {
   const panel = document.getElementById('mpsp-options'); if(!panel) return;
   const srch  = (document.getElementById('mpsp-search')?.value||'').toLowerCase();
-  const active = employees.filter(e => e.status !== 'Inactive' && (!srch || e.name.toLowerCase().includes(srch) || (e.designation||'').toLowerCase().includes(srch)));
+  const active = allEmployees().filter(e => e.status !== 'Inactive' && (!srch || e.name.toLowerCase().includes(srch) || (e.designation||'').toLowerCase().includes(srch)));
   const dirs   = active.filter(e => e.isDirector);
   const others = active.filter(e => !e.isDirector);
   let html = '';
@@ -2784,7 +2903,7 @@ function openInlinePersonPicker(taskId, el) {
   const t = tasks.find(x=>x.id===taskId); if(!t) return;
   const current = getTaskPersons(t);
   let selected  = [...current];
-  const active  = employees.filter(e => e.status !== 'Inactive');
+  const active  = allEmployees().filter(e => e.status !== 'Inactive');
   const dirs    = active.filter(e => e.isDirector);
   const others  = active.filter(e => !e.isDirector);
 
@@ -3062,6 +3181,7 @@ function initFirebase() {
 
 function startDB() {
   setConn('wait','Connecting…');
+  startShoneDirectory();          /* build 2026-09-21: live read-only view of SHONE's masters, switches and permissions */
   // Initial load
   loadAllFromDB(true);
   // Fast 2-second polling so other users' changes appear quickly
@@ -3107,7 +3227,7 @@ function loadAllFromDB(initial) {
 
       // Guard: never replace real data with empty
       if(activeTasks.length === 0 && (tasks.length > 0 || fbReady)) {
-        setConn('live','Live'); return;
+        setConn('live','Live'); hideRecoveryBanner(); return;
       }
       // First-time empty DB → seed once
       if(activeTasks.length === 0 && !fbReady && lsBackup().length === 0) {
@@ -3125,6 +3245,7 @@ function loadAllFromDB(initial) {
       fbReady = true;
       setConn('live','Live');
       hideFirebaseError();
+      hideRecoveryBanner();          /* build 2026-09-21: the database answered — the "local backup found" banner no longer applies */
     })
     .catch(e => {
       setConn('err','Offline');
@@ -3325,7 +3446,7 @@ function calcDeptSummary(list) {
 function calcProjSummary(list) {
   const t=today(),t7=new Date(t.getTime()+7*86400000);
   const rows={};
-  projects.forEach(p=>rows[p.projectNo]={proj:p.projectNo,name:p.projectName,client:p.clientName,pStatus:p.status,tot:0,open:0,ov:0,d7:0,bl:0,p1:0,next:null});
+  allProjects().forEach(p=>rows[p.projectNo]={proj:p.projectNo,name:p.projectName,client:p.clientName,pStatus:p.status,tot:0,open:0,ov:0,d7:0,bl:0,p1:0,next:null});
   // Also include projects referenced in tasks but not in projects array
   list.forEach(k=>{ getTaskProjects(k).forEach(pno=>{ if(pno&&!rows[pno])rows[pno]={proj:pno,name:'',client:'',pStatus:'',tot:0,open:0,ov:0,d7:0,bl:0,p1:0,next:null}; }); });
   list.forEach(k=>{
@@ -3405,6 +3526,7 @@ function _doRenderAll() {
   }
   // Don't call generateExcelBlob() on every render — it's very heavy
   // Excel is generated on-demand when user clicks Export
+  applyShoneControls();
 }
 
 
@@ -3432,7 +3554,7 @@ function renderDashboard() {
 
   document.querySelector('#dash-dept-tbl tbody').innerHTML=calcDeptSummary(tasks).map(r=>`<tr><td style="font-weight:600;color:${(r.bl||r.ov||r.p1)?'var(--text)':'var(--text2)'};">${r.dept}</td>${nCell(r.open)}${nCell(r.ov,'c-red')}${nCell(r.d7,'c-amber')}${nCell(r.bl,'c-red')}${nCell(r.wt,'c-amber')}${nCell(r.p1,'c-purple')}<td>${bAction(r.action)}</td></tr>`).join('');
 
-  const ps=calcProjSummary(tasks).filter(r=>r.tot>0||projects.find(p=>p.projectNo===r.proj)).slice(0,10);
+  const ps=calcProjSummary(tasks).filter(r=>r.tot>0||allProjects().find(p=>p.projectNo===r.proj)).slice(0,10);
   const ptb=document.querySelector('#dash-proj-tbl tbody');
   if(!ps.length){ptb.innerHTML=`<tr><td colspan="9" class="empty-state">No project tasks yet.</td></tr>`;return;}
   ptb.innerHTML=ps.map(r=>`<tr><td class="mono sm" style="color:var(--blue);">${h(r.proj)}</td><td class="sm">${h(r.name)||'—'}</td><td class="sm c-text2">${h(r.client)||'—'}</td>${nCell(r.open)}${nCell(r.ov,'c-red')}${nCell(r.d7,'c-amber')}${nCell(r.bl,'c-red')}${nCell(r.p1,'c-purple')}<td>${bAction(r.action)}</td></tr>`).join('');
@@ -3511,8 +3633,9 @@ function renderDeptSummary() {
 
 function renderProjSummary() {
   const ps=calcProjSummary(tasks);
-  const active=ps.filter(r=>r.tot>0||projects.find(p=>p.projectNo===r.proj));
-  const empty=ps.filter(r=>r.tot===0&&!projects.find(p=>p.projectNo===r.proj));
+  const allP=allProjects();
+  const active=ps.filter(r=>r.tot>0||allP.find(p=>p.projectNo===r.proj));
+  const empty=ps.filter(r=>r.tot===0&&!allP.find(p=>p.projectNo===r.proj));
   const rows=[...active,...empty];
   document.getElementById('proj-tbody').innerHTML=rows.map(r=>`<tr>
     <td class="mono sm" style="color:var(--blue);">${h(r.proj)}</td>
@@ -3533,13 +3656,16 @@ function renderOwnerSummary() {
 // ── PROJECTS PAGE ─────────────────────────────────────────────
 function renderProjects() {
   const filterStatus=document.getElementById('pf-status')?.value||'All';
+  const all=allProjects();                              /* own projects + SHONE projects mapped to Task Control */
+  const projLocal=shoneLocal('projects'), mayEdit=shoneDecision('projects','edit')!==false, mayDel=shoneDecision('projects','delete')!==false;
   const badge=document.getElementById('proj-count-badge');
-  if(badge) badge.textContent=`${projects.length} project${projects.length!==1?'s':''}`;
+  if(badge) badge.textContent=`${all.length} project${all.length!==1?'s':''}`+(all.some(p=>p.fromShone)?` · ${all.filter(p=>p.fromShone).length} from SHONE`:'');
   const container=document.getElementById('projects-container');
   if(!container)return;
-  let filtered=projects.filter(p=>filterStatus==='All'||p.status===filterStatus);
+  let filtered=all.filter(p=>filterStatus==='All'||p.status===filterStatus);
   if(!filtered.length){
-    container.innerHTML=`<div class="empty-state"><div class="empty-icon">📁</div>${projects.length?'No projects match the filter.':'No projects yet. Click <strong>+ New Project</strong> to create one.'}</div>`;
+    container.innerHTML=`<div class="empty-state"><div class="empty-icon">📁</div>${all.length?'No projects match the filter.':'No projects yet. Click <strong>+ New Project</strong> to create one.'}</div>`;
+    applyShoneControls();
     return;
   }
   const grid=filtered.map(p=>{
@@ -3553,7 +3679,7 @@ function renderProjects() {
           <div class="proj-card-name">${h(p.projectName)}</div>
           <div class="proj-card-client">🏢 ${h(p.clientName)}</div>
         </div>
-        ${bProjStatus(p.status)}
+        <div style="display:flex;gap:6px;align-items:center;">${p.fromShone?'<span class="badge b-blue" title="Comes live from the SHONE Project Master — edited in SHONE">SHONE</span>':''}${bProjStatus(p.status)}</div>
       </div>
       ${p.description?`<div class="sm c-text2" style="margin-bottom:8px;line-height:1.55;white-space:pre-wrap;word-break:break-word;">${h(p.description)}</div>`:''}
       <div class="proj-card-meta">
@@ -3562,18 +3688,19 @@ function renderProjects() {
         <span style="color:var(--blue);">⚡ ${openCount} open</span>
       </div>
       <div class="proj-card-actions">
-        <button class="btn btn-ghost btn-sm" onclick="openEditProject('${p.id}')">✏️ Edit</button>
+        ${(!p.fromShone && mayEdit)?`<button class="btn btn-ghost btn-sm" onclick="openEditProject('${p.id}')">✏️ Edit</button>`:''}
         <button class="btn btn-ghost btn-sm" onclick="showTab('task-capture');openAdd('${p.projectNo}')">+ Task</button>
-        <button class="btn btn-danger btn-sm" onclick="confirmDelProject('${p.id}')">🗑 Delete</button>
+        ${(!p.fromShone && projLocal && mayDel)?`<button class="btn btn-danger btn-sm" onclick="confirmDelProject('${p.id}')">🗑 Delete</button>`:''}
       </div>
     </div>`;
   }).join('');
   container.innerHTML=`<div class="proj-cards-grid">${grid}</div>`;
+  applyShoneControls();
 }
 
 function getProjLabel(projNo) {
   if(!projNo)return'';
-  const p=projects.find(x=>x.projectNo===projNo);
+  const p=allProjects().find(x=>x.projectNo===projNo);
   return p?`${projNo} — ${p.projectName}`:`projNo`;
 }
 
@@ -3591,11 +3718,12 @@ function populateFilters() {
 function populateProjectFilter() {
   const el=document.getElementById('tv-proj'); if(!el)return;
   const cur=el.value;
-  const nums=projects.map(p=>p.projectNo);
+  const allP=allProjects();
+  const nums=allP.map(p=>p.projectNo);
   // Also include project numbers from tasks not in projects array
   tasks.forEach(t=>{ getTaskProjects(t).forEach(p=>{if(p&&!nums.includes(p))nums.push(p);}); });
   nums.sort();
-  el.innerHTML='<option>All</option>'+nums.map(n=>{ const p=projects.find(x=>x.projectNo===n); return `<option value="${n}">${n}${p?' — '+p.projectName:''}</option>`; }).join('');
+  el.innerHTML='<option>All</option>'+nums.map(n=>{ const p=allP.find(x=>x.projectNo===n); return `<option value="${n}">${n}${p?' — '+p.projectName:''}</option>`; }).join('');
   if(nums.includes(cur))el.value=cur;
 }
 
@@ -3680,14 +3808,15 @@ function closeMPS() {
 function renderMPSOptions() {
   const search = (document.getElementById('mps-search')?.value || '').toLowerCase();
   const container = document.getElementById('mps-options'); if (!container) return;
-  const filtered = projects.filter(p =>
+  const allP = allProjects();
+  const filtered = allP.filter(p =>
     !search ||
     p.projectNo.toLowerCase().includes(search) ||
     (p.projectName||'').toLowerCase().includes(search) ||
     (p.clientName||'').toLowerCase().includes(search)
   );
   if (!filtered.length) {
-    container.innerHTML = `<div class="mps-empty">${projects.length ? 'No projects match your search.' : 'No projects created yet. Add projects in the 📁 Projects tab first.'}</div>`;
+    container.innerHTML = `<div class="mps-empty">${allP.length ? 'No projects match your search.' : 'No projects created yet. Add projects in the 📁 Projects tab first.'}</div>`;
     return;
   }
   container.innerHTML = filtered.map(p => {
@@ -3696,7 +3825,7 @@ function renderMPSOptions() {
       <input type="checkbox" ${checked?'checked':''} onclick="event.stopPropagation();toggleMPSItem('${p.projectNo}',this.closest('.mps-option'))">
       <span class="mps-option-num">${h(p.projectNo)}</span>
       <div class="mps-option-detail">
-        <span class="mps-option-name">${h(p.projectName)}</span>
+        <span class="mps-option-name">${h(p.projectName)}${p.fromShone?' <span style="font-size:9px;color:var(--corp-teal);">· SHONE</span>':''}</span>
         <span class="mps-option-client">${h(p.clientName)}</span>
       </div>
     </div>`;
@@ -3717,8 +3846,9 @@ function updateMPSTags() {
     container.innerHTML = '<span class="mps-placeholder">Click to select projects…</span>';
     return;
   }
+  const allP = allProjects();
   container.innerHTML = _selectedProjects.map(pno => {
-    const p = projects.find(x => x.projectNo === pno);
+    const p = allP.find(x => x.projectNo === pno);
     const label = p ? `${pno} — ${p.projectName}` : pno;
     return `<span class="mps-tag">${h(label)}<span class="mps-tag-remove" onclick="event.stopPropagation();removeMPSItem('${pno}')" title="Remove">✕</span></span>`;
   }).join('');
@@ -3931,8 +4061,17 @@ function nextProjId() {
   return'P-'+String(max+1).padStart(3,'0');
 }
 
+function shoneProjLock(lock){
+  ['pf-num','pf-name','pf-client','pf-desc'].forEach(id=>{ const el=document.getElementById(id); if(!el) return; if(lock){ el.disabled=true; el.title='Centrally managed from SHONE'; } else { el.disabled=false; el.title=''; } });
+  const body=document.querySelector('#project-modal .modal-body'); if(!body) return;
+  let n=document.getElementById('shone-lock-proj-modal');
+  if(lock){ if(!n){ n=document.createElement('div'); n.id='shone-lock-proj-modal'; body.prepend(n); } n.innerHTML=shoneLock('Number, name, client and description are edited in SHONE → Project Master; status and dates stay this dashboard\'s own.'); }
+  else if(n) n.remove();
+}
 function openAddProject() {
+  if(!shoneLocal('projects')){ shoneBlocked('Adding projects'); return; }
   editingProjId=null;
+  shoneProjLock(false);
   document.getElementById('proj-modal-title').textContent='New Project';
   document.getElementById('pf-num').value=nextProjId();
   document.getElementById('pf-num').readOnly=false;
@@ -3957,6 +4096,7 @@ function openEditProject(id) {
   document.getElementById('pf-start').value=p.startDate;
   document.getElementById('pf-end').value=p.endDate||'';
   document.getElementById('pf-status').value=p.status;
+  shoneProjLock(!shoneLocal('projects'));
   document.getElementById('project-modal').classList.add('open');
 }
 
@@ -3968,14 +4108,18 @@ function saveProject() {
   const name=document.getElementById('pf-name').value.trim();
   const start=document.getElementById('pf-start').value;
   const status=document.getElementById('pf-status').value;
-  // Only check for duplicate project number (data integrity, not mandatory)
+  if(!editingProjId && !shoneLocal('projects')){ shoneBlocked('Adding projects'); return; }
+  // Only check for duplicate project number (data integrity, not mandatory) — also against the SHONE Project Master (P-26004 = 26004)
   if(num && !editingProjId && projects.find(p=>p.projectNo===num)){ toast('Project Number '+num+' already exists. Please use a different number.','error'); return; }
+  if(num && !editingProjId && allProjects().find(p=>p.fromShone && shoneKey(p.projectNo)===shoneKey(num))){ toast('Project '+num+' already exists in the SHONE Project Master and is already offered here — no duplicate created.','error'); return; }
+  const prev = editingProjId ? (projects.find(p=>p.id===editingProjId)||{}) : null;
+  const lockIdentity = !!prev && !shoneLocal('projects');
   const data={
     id:          editingProjId||('PROJ-'+Date.now()),
-    projectNo:   num,
-    clientName:  client,
-    projectName: name,
-    description: document.getElementById('pf-desc').value,
+    projectNo:   lockIdentity ? prev.projectNo : num,
+    clientName:  lockIdentity ? (prev.clientName||'') : client,
+    projectName: lockIdentity ? (prev.projectName||'') : name,
+    description: lockIdentity ? (prev.description||'') : document.getElementById('pf-desc').value,
     startDate:   start,
     endDate:     document.getElementById('pf-end').value,
     status,
@@ -3996,6 +4140,7 @@ function confirmDelProject(id) {
 function closeProjConfirm() { pendingDelProjId=null; document.getElementById('proj-confirm-bg').classList.remove('open'); }
 function doDeleteProject() {
   if(!pendingDelProjId)return;
+  if(!shoneLocal('projects')){ shoneBlocked('Deleting projects'); closeProjConfirm(); return; }
   const p = projects.find(x=>x.id===pendingDelProjId);
   if(p) addAuditLog('delete','project',p.id,`${p.projectNo} — ${p.projectName}`);
   projects=projects.filter(p=>p.id!==pendingDelProjId);
@@ -4059,6 +4204,7 @@ function importTasks(file) {
 
 // ── TABS & UI HELPERS ─────────────────────────────────────────
 function showTab(id) {
+  if(shoneDecision(id, 'view') === false){ toast('This page is not available for you (set in SHONE → Permission Management).', 'error'); return; }
   document.querySelectorAll('.nav-tab').forEach(t=>t.classList.toggle('active',t.dataset.tab===id));
   document.querySelectorAll('.page').forEach(p=>p.classList.toggle('active',p.id===`page-${id}`));
   if(id==='projects') renderProjects();
@@ -4138,7 +4284,9 @@ function renderEmployees() {
   const statF   = document.getElementById('emp-filter-status')?.value||'';
   const dirF    = document.getElementById('emp-filter-director')?.value||'';
 
-  let filtered = employees.filter(e=>{
+  const allE = allEmployees();                          /* own list + people SHONE lists for Task Control */
+  const usersLocal = shoneLocal('users'), mayEdit = shoneDecision('employees','edit')!==false, mayDel = shoneDecision('employees','delete')!==false;
+  let filtered = allE.filter(e=>{
     if(search && !( (e.name||'').toLowerCase().includes(search) || (e.empCode||'').toLowerCase().includes(search) )) return false;
     if(deptF  && e.department !== deptF)  return false;
     if(desgF  && e.designation !== desgF) return false;
@@ -4162,13 +4310,14 @@ function renderEmployees() {
   });
 
   const badge = document.getElementById('emp-count-badge');
-  if(badge) badge.textContent = `${filtered.length} of ${employees.length} employee${employees.length!==1?'s':''}`;
+  if(badge) badge.textContent = `${filtered.length} of ${allE.length} employee${allE.length!==1?'s':''}`+(allE.some(e=>e.fromShone)?` · ${allE.filter(e=>e.fromShone).length} from SHONE`:'');
 
   const tbody = document.getElementById('emp-tbody');
   if(!tbody)return;
 
   if(!filtered.length){
-    tbody.innerHTML=`<tr><td colspan="9" class="empty-state"><div class="empty-icon">👤</div>${employees.length?'No employees match the filters.':'No employees yet. Click <strong>+ Add Employee</strong>.'}</td></tr>`;
+    tbody.innerHTML=`<tr><td colspan="9" class="empty-state"><div class="empty-icon">👤</div>${allE.length?'No employees match the filters.':'No employees yet. Click <strong>+ Add Employee</strong>.'}</td></tr>`;
+    applyShoneControls();
     return;
   }
 
@@ -4183,7 +4332,7 @@ function renderEmployees() {
     const contact = [e.email, e.mobile].filter(Boolean).join(' · ') || '<span class="c-gray">—</span>';
     return `<tr>
       <td class="mono sm" style="color:var(--blue);font-weight:600;">${h(e.empCode)||'—'}</td>
-      <td><div class="emp-name-cell"><div class="emp-avatar">${initials}</div><div><div class="emp-name-text">${h(e.name)||'—'}</div><div class="emp-email">${h(e.email)||''}</div></div></div></td>
+      <td><div class="emp-name-cell"><div class="emp-avatar">${initials}</div><div><div class="emp-name-text">${h(e.name)||'—'}${e.fromShone?' <span class="badge b-blue" title="Comes live from the SHONE User Master — edited in SHONE">SHONE</span>':''}</div><div class="emp-email">${h(e.email)||''}</div></div></div></td>
       <td class="sm">${h(e.designation)||'—'}</td>
       <td class="sm">${h(e.department)||'—'}</td>
       <td>${statusBadge}</td>
@@ -4191,11 +4340,12 @@ function renderEmployees() {
       <td class="sm c-text2">${contact}</td>
       <td class="sm c-text2">${h(e.reportingManager)||'—'}</td>
       <td><div style="display:flex;gap:4px;">
-        <button class="btn btn-ghost btn-sm btn-icon" onclick="openEditEmp('${e.id}')" title="Edit">✏️</button>
-        <button class="btn btn-danger btn-sm btn-icon" onclick="confirmDelEmp('${e.id}')" title="Delete">🗑</button>
+        ${(!e.fromShone && mayEdit)?`<button class="btn btn-ghost btn-sm btn-icon" onclick="openEditEmp('${e.id}')" title="Edit">✏️</button>`:''}
+        ${(!e.fromShone && usersLocal && mayDel)?`<button class="btn btn-danger btn-sm btn-icon" onclick="confirmDelEmp('${e.id}')" title="Delete">🗑</button>`:''}
       </div></td>
     </tr>`;
   }).join('');
+  applyShoneControls();
 }
 
 function sortEmployees(col) {
@@ -4206,23 +4356,34 @@ function sortEmployees(col) {
 
 function refreshEmpFilters() {
   // Dept filter
-  const depts=[...new Set(employees.map(e=>e.department).filter(Boolean))].sort();
+  const depts=[...new Set(allEmployees().map(e=>e.department).filter(Boolean))].sort();
   const deptEl=document.getElementById('emp-filter-dept'); 
   if(deptEl){ const cur=deptEl.value; deptEl.innerHTML='<option value="">All Departments</option>'+depts.map(d=>`<option>${d}</option>`).join(''); deptEl.value=cur; }
   // Designation filter
-  const desgs=[...new Set(employees.map(e=>e.designation).filter(Boolean))].sort();
+  const desgs=[...new Set(allEmployees().map(e=>e.designation).filter(Boolean))].sort();
   const desgEl=document.getElementById('emp-filter-desg');
   if(desgEl){ const cur=desgEl.value; desgEl.innerHTML='<option value="">All Designations</option>'+desgs.map(d=>`<option>${d}</option>`).join(''); desgEl.value=cur; }
   // Manager datalist in emp modal
   const mgEl=document.getElementById('ef-manager-list');
-  if(mgEl) mgEl.innerHTML=employees.filter(e=>e.status==='Active').map(e=>`<option value="${e.name}">`).join('');
+  if(mgEl) mgEl.innerHTML=allEmployees().filter(e=>e.status==='Active').map(e=>`<option value="${e.name}">`).join('');
   // Also populate dept dropdown in emp form
   const empDeptEl=document.getElementById('ef-dept');
   if(empDeptEl){ const cur=empDeptEl.value; empDeptEl.innerHTML='<option value="">— Select —</option>'+L.depts.map(d=>`<option>${d}</option>`).join(''); if(cur)empDeptEl.value=cur; }
 }
 
 // ── Add / Edit employee modal ──
+function shoneEmpLock(){
+  const idLock=!shoneLocal('users'), roleLock=!shoneLocal('permissions');
+  ['ef-code','ef-name','ef-desg','ef-dept','ef-email','ef-status'].forEach(id=>{ const el=document.getElementById(id); if(!el) return; el.disabled=idLock; el.title=idLock?'Centrally managed from SHONE':''; });
+  document.querySelectorAll('input[name="ef-director"], #ef-dir-select').forEach(el=>{ el.disabled=roleLock; el.title=roleLock?'Centrally managed from SHONE':''; });
+  const body=document.querySelector('#emp-modal .modal-body'); if(!body) return;
+  let n=document.getElementById('shone-lock-emp-modal');
+  if(idLock||roleLock){ if(!n){ n=document.createElement('div'); n.id='shone-lock-emp-modal'; body.prepend(n); }
+    n.innerHTML=shoneLock((idLock?'Identity (ID, name, designation, department, e-mail, Active/Inactive) is edited in SHONE → User Master. ':'')+(roleLock?'The ★ Director right is set in SHONE → Permission Management. ':'')+'Mobile and reporting manager stay this dashboard\'s own.'); }
+  else if(n) n.remove();
+}
 function openAddEmp() {
+  if(!shoneLocal('users')){ shoneBlocked('Adding employees'); return; }
   editingEmpId=null;
   document.getElementById('emp-modal-title').textContent='Add Employee';
   document.getElementById('ef-code').value=nextEmpId();
@@ -4239,6 +4400,7 @@ function openAddEmp() {
   const _efMb=document.getElementById('ef-mobile'); if(_efMb)_efMb.value='';
   const _efMg=document.getElementById('ef-manager'); if(_efMg)_efMg.value='';
   refreshEmpFilters();
+  shoneEmpLock();
   document.getElementById('emp-modal').classList.add('open');
 }
 
@@ -4257,6 +4419,7 @@ function openEditEmp(id) {
   document.getElementById('ef-status').value=e.status||'Active';
   if(e.isDirector) document.getElementById('ef-dir-yes').checked=true;
   const _dirNoFix=document.getElementById('ef-dir-no'); if(_dirNoFix)_dirNoFix.checked=true;
+  shoneEmpLock();
   document.getElementById('emp-modal').classList.add('open');
 }
 
@@ -4265,17 +4428,20 @@ function closeEmpModal() { document.getElementById('emp-modal').classList.remove
 function saveEmployee() {
   const name=document.getElementById('ef-name').value.trim();
   if(!name){ toast('Employee name is required.','error'); return; }
+  if(!editingEmpId && !shoneLocal('users')){ shoneBlocked('Adding employees'); return; }
+  const prevE = editingEmpId ? (employees.find(e=>e.id===editingEmpId)||{}) : null;
+  const lockId = !!prevE && !shoneLocal('users'), lockRole = !!prevE && !shoneLocal('permissions');
   const data={
     id:              editingEmpId||('EMP-'+Date.now()),
-    empCode:         document.getElementById('ef-code').value.trim(),
-    name,
-    designation:     document.getElementById('ef-desg').value.trim(),
-    department:      (document.getElementById('ef-dept')||{value:''}).value,
-    email:           (document.getElementById('ef-email')||{value:''}).value.trim(),
+    empCode:         lockId ? (prevE.empCode||'') : document.getElementById('ef-code').value.trim(),
+    name:            lockId ? (prevE.name||name) : name,
+    designation:     lockId ? (prevE.designation||'') : document.getElementById('ef-desg').value.trim(),
+    department:      lockId ? (prevE.department||'') : (document.getElementById('ef-dept')||{value:''}).value,
+    email:           lockId ? (prevE.email||'') : (document.getElementById('ef-email')||{value:''}).value.trim(),
     mobile:          (document.getElementById('ef-mobile')||{value:''}).value.trim(),
     reportingManager:(document.getElementById('ef-manager')||{value:''}).value.trim(),
-    status:          document.getElementById('ef-status').value,
-    isDirector:      document.querySelector('input[name="ef-director"]:checked')?.value==='yes',
+    status:          lockId ? (prevE.status||'Active') : document.getElementById('ef-status').value,
+    isDirector:      lockRole ? !!prevE.isDirector : (document.querySelector('input[name="ef-director"]:checked')?.value==='yes'),
     createdAt:       editingEmpId?(employees.find(e=>e.id===editingEmpId)||{}).createdAt:todayStr(),
     createdBy:       editingEmpId?(employees.find(e=>e.id===editingEmpId)||{}).createdBy:(currentUser?currentUser.email:''),
   };
@@ -4294,6 +4460,7 @@ function confirmDelEmp(id) {
 function closeEmpConfirm() { pendingDelEmpId=null; document.getElementById('emp-confirm-bg').classList.remove('open'); }
 function doDeleteEmp() {
   if(!pendingDelEmpId)return;
+  if(!shoneLocal('users')){ shoneBlocked('Deleting employees'); closeEmpConfirm(); return; }
   const _e = employees.find(x=>x.id===pendingDelEmpId);
   if(_e) addAuditLog('delete','employee', _e.id, (_e.empCode||'?')+' — '+(_e.name||'?'));
   employees=employees.filter(e=>e.id!==pendingDelEmpId);
@@ -4329,7 +4496,7 @@ function closeCP() {
 function renderCPOptions() {
   const search=(document.getElementById('cp-search')?.value||'').toLowerCase();
   const container=document.getElementById('cp-options'); if(!container)return;
-  const active=employees.filter(e=>e.status==='Active');
+  const active=allEmployees().filter(e=>e.status==='Active');
   const dirs  =active.filter(e=>e.isDirector);
   const others=active.filter(e=>!e.isDirector);
   const all   =[...dirs,...others];
@@ -4341,7 +4508,7 @@ function renderCPOptions() {
   ) : all;
 
   if(!filtered.length){
-    container.innerHTML=`<div class="cp-empty">${employees.length?'No employees match your search.':'No employees yet. Add employees in the 👥 Employees tab first.'}</div>`;
+    container.innerHTML=`<div class="cp-empty">${allEmployees().length?'No employees match your search.':'No employees yet. Add employees in the 👥 Employees tab first.'}</div>`;
     return;
   }
 
@@ -4650,6 +4817,7 @@ function downloadEmpTemplate() {
 }
 
 async function handleEmpExcelUpload(input) {
+  if(!shoneLocal('users')){ shoneBlocked('Bulk upload of employees'); input.value=''; return; }
   if (!input.files?.length) return;
   const file = input.files[0]; input.value='';
   setUploadProgress('emp-upload-progress', true, 'Reading Excel…');
@@ -4727,6 +4895,7 @@ function downloadProjTemplate() {
 }
 
 async function handleProjExcelUpload(input) {
+  if(!shoneLocal('projects')){ shoneBlocked('Bulk upload of projects'); input.value=''; return; }
   if (!input.files?.length) return;
   const file = input.files[0]; input.value='';
   setUploadProgress('proj-upload-progress', true, 'Reading Excel…');
@@ -5949,6 +6118,7 @@ function applyRoleToUI() {
     // Hide access denied banner
     const banner = document.getElementById('access-denied-dash');
     if(banner) banner.classList.remove('visible');
+    applyShoneControls();
     return; // done — no restrictions apply
   }
 
@@ -5972,6 +6142,7 @@ function applyRoleToUI() {
       'You are viewing tasks for your department (' + (_userDept||'assigned dept') +
       ') only. Contact your Director/Admin for broader access.';
   }
+  applyShoneControls();
 }
 
 
@@ -5979,8 +6150,8 @@ function populateQNoteEmployeeDropdown() {
   const sel = document.getElementById('qnote-employee'); if(!sel) return;
   const cur = sel.value;
   // Build grouped options: Directors first, then others
-  const dirs  = employees.filter(e=>e.status!=='Inactive'&&e.isDirector);
-  const others= employees.filter(e=>e.status!=='Inactive'&&!e.isDirector);
+  const dirs  = allEmployees().filter(e=>e.status!=='Inactive'&&e.isDirector);
+  const others= allEmployees().filter(e=>e.status!=='Inactive'&&!e.isDirector);
   let html = '<option value="">— Select Employee —</option>';
   if(dirs.length){
     html += '<optgroup label="★ Directors">';
@@ -6342,7 +6513,7 @@ function makeCPSelect(taskId, currentVal) {
 
 // Called when user clicks the CP display — replaces it with a real <select>
 function activateCPSelect(el, taskId, currentVal) {
-  const active   = employees.filter(e => e.status !== 'Inactive');
+  const active   = allEmployees().filter(e => e.status !== 'Inactive');
   const dirs     = active.filter(e => e.isDirector);
   const others   = active.filter(e => !e.isDirector);
   const allNames = active.map(e => e.name);
