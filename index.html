@@ -1,10 +1,10 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en" data-theme="dark">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Director Control Dashboard</title>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<!-- build 2026-10-08: SHONE UI v1 uses the system font (no web-font download) -->
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 
@@ -1045,22 +1045,25 @@ tr:hover .fc {
       <button class="fb-err-dismiss" onclick="hideFirebaseError()">Dismiss</button>
     </div>
   </div>
+  <div class="app-top"><!-- 2026-10-08: header + tab bar stay together at the top -->
   <!-- HEADER -->
   <header class="app-header">
     <div class="app-brand">
       <img src="data:image/gif;base64,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" alt="SH Engitech" style="width:36px;height:36px;border-radius:8px;object-fit:contain;background:#fff;padding:2px;flex-shrink:0;">
-      <div><div class="brand-title">Director Control Dashboard</div><div class="brand-sub">Task Management &amp; Execution System · build 2026-09-22</div></div>
+      <div><div class="brand-title">Director Control Dashboard</div><div class="brand-sub">Task Management &amp; Execution System · build 2026-10-08</div></div>
     </div>
     <div class="conn-pill conn-wait" id="conn-pill"><span class="conn-dot"></span><span id="conn-label">Connecting…</span></div>
+    <div class="hdr-tools">
     <div class="zoom-controls">
       <button class="zoom-btn" onclick="zoomOut()" title="Zoom Out">−</button>
       <span class="zoom-label" id="zoom-label">100%</span>
       <button class="zoom-btn" onclick="zoomIn()" title="Zoom In">+</button>
       <button class="zoom-btn" onclick="resetZoom()" title="Reset Zoom" style="font-size:10px;">Reset</button>
-      <button class="zoom-btn" onclick="fitToScreen()" title="Fit to Screen" style="font-size:10px;">Fit</button>
+      <button class="zoom-btn" onclick="_zoomByUser();fitToScreen()" title="Fit to Screen" style="font-size:10px;">Fit</button>
     </div>
     <div class="backup-status" id="backup-status" title="Auto Excel backup status"><span class="backup-dot" id="backup-dot"></span><span id="backup-label">Backup Ready</span></div>
     <button class="btn btn-ghost btn-sm" onclick="openRecoveryModal()" style="font-size:10px;padding:4px 10px;" title="Data Recovery Centre — view backup, restore deleted tasks, audit log">🔐 Recovery</button>
+    </div><!-- /hdr-tools -->
     <div class="header-right">
       <div class="header-date" id="header-date"></div>
       <div class="theme-toggle" id="theme-toggle"><span class="theme-icon icon-moon">🌙</span><div class="theme-switch"></div><span class="theme-icon icon-sun">☀️</span></div>
@@ -1085,12 +1088,28 @@ tr:hover .fc {
       <button class="nav-tab cal-nav-tab-hidden" id="cal-nav-tab" data-tab="personal-calendar">📅 My Calendar</button>
     </div>
   </nav>
+  </div><!-- /app-top -->
 
   <!-- ══ DASHBOARD ══ -->
-  <div class="page active" id="page-dashboard">
-    <div class="page-title">Director Control Dashboard</div>
-    <div class="page-sub">Live shared data. Any change by any colleague is visible to everyone instantly.</div>
-
+  <div class="page active" id="page-dashboard"><!-- 2026-10-08 SHONE UI v1: KPI strip, main + side columns, reference row -->
+    <div class="dash-head"><div><div class="page-title">Director Control Dashboard</div><div class="page-sub">Live shared data. Any change by any colleague is visible to everyone instantly.</div></div>
+      <div class="dash-legend"><span><i class="sh-dot" style="background:var(--red)"></i>Overdue · blocked</span><span><i class="sh-dot" style="background:var(--amber)"></i>Due soon · waiting</span><span><i class="sh-dot" style="background:var(--purple)"></i>P1 critical</span></div></div>
+    <!-- ACCESS DENIED BANNER — shown to dept users if no dept assigned -->
+    <div class="access-denied-banner" id="access-denied-dash">
+      <div class="access-denied-title">🔒 Limited Access</div>
+      <div class="access-denied-msg" id="access-denied-msg-dash">You are viewing tasks for your department only. Contact your administrator for broader access.</div>
+    </div>
+    <div class="kpi-grid" id="kpi-grid"></div>
+    <div class="dash-grid">
+      <div class="dash-main">
+      <div class="section-card" style="margin-bottom:0;"><div class="section-hdr"><div class="section-hdr-title">Department Exception Summary</div></div>
+        <div class="table-wrap"><table id="dash-dept-tbl"><thead><tr><th>Department</th><th>Open</th><th>Overdue</th><th>Due 7D</th><th>Blocked</th><th>Waiting</th><th>P1 Open</th><th>Action</th></tr></thead><tbody></tbody></table></div></div>
+      <div class="section-card">
+      <div class="section-hdr"><div class="section-hdr-title">Project Quick Summary — First 10 Active Projects</div></div>
+      <div class="table-wrap"><table id="dash-proj-tbl"><thead><tr><th>Project No.</th><th>Project Name</th><th>Client</th><th>Open Tasks</th><th>Overdue</th><th>Due 7D</th><th>Blocked</th><th>P1 Open</th><th>Action</th></tr></thead><tbody></tbody></table></div>
+    </div>
+      </div>
+      <aside class="dash-side">
     <!-- QUICK NOTES PANEL -->
     <div class="qn-panel" id="qn-panel-dash">
       <div class="qn-header" onclick="toggleQN('dash')">
@@ -1125,16 +1144,10 @@ tr:hover .fc {
         </div>
       </div>
     </div>
-
-
-    <!-- ACCESS DENIED BANNER — shown to dept users if no dept assigned -->
-    <div class="access-denied-banner" id="access-denied-dash">
-      <div class="access-denied-title">🔒 Limited Access</div>
-      <div class="access-denied-msg" id="access-denied-msg-dash">You are viewing tasks for your department only. Contact your administrator for broader access.</div>
+      </aside>
     </div>
-
-    <div class="kpi-grid" id="kpi-grid"></div>
-    <div class="section-card" style="margin-bottom:20px;">
+    <div class="dash-ref">
+      <div class="section-card">
       <div class="section-hdr"><div class="section-hdr-title">Simple Daily Control Rule</div><span class="badge b-blue" style="font-size:9px;">Discipline</span></div>
       <div class="rules-grid">
         <div class="rule-block"><div class="rule-label">🌅 Morning</div><div class="rule-item"><span class="rule-bullet">▸</span><span class="rule-text">Review overdue, blocked, P1, and due-today tasks first.</span></div><div class="rule-sub">Use Task Capture as the <strong>only entry point</strong>. No handwritten lists.</div></div>
@@ -1142,9 +1155,6 @@ tr:hover .fc {
         <div class="rule-block"><div class="rule-label">🎯 Director Focus</div><div class="df-grid"><div class="df-row"><span class="df-lbl">Focus</span><span class="df-val df-hl">Dashboard + Task View</span></div><div class="df-row"><span class="df-lbl">Execution</span><span class="df-val">Owner + deadline + next action</span></div><div class="df-row"><span class="df-lbl">Deep Work</span><span class="df-val df-hl">6:30 PM – 8:30 PM protected</span></div></div></div>
       </div>
     </div>
-    <div class="dash-two-col">
-      <div class="section-card" style="margin-bottom:0;"><div class="section-hdr"><div class="section-hdr-title">Department Exception Summary</div></div>
-        <div class="table-wrap"><table id="dash-dept-tbl"><thead><tr><th>Department</th><th>Open</th><th>Overdue</th><th>Due 7D</th><th>Blocked</th><th>Waiting</th><th>P1 Open</th><th>Action</th></tr></thead><tbody></tbody></table></div></div>
       <div class="section-card" style="margin-bottom:0;"><div class="section-hdr"><div class="section-hdr-title">Director Control Focus</div></div>
         <div class="table-wrap"><table class="focus-table"><thead><tr><th>Area</th><th>What to Review</th><th>Trigger</th><th>Rule</th></tr></thead>
           <tbody>
@@ -1156,10 +1166,6 @@ tr:hover .fc {
             <tr><td>Resources</td><td>Hiring gaps, org chart, responsibility clarity</td><td>Open resource task</td><td>Owner defined before discussion ends</td></tr>
             <tr><td>Closing</td><td>Carry-forward tasks and tomorrow priorities</td><td>End of day</td><td>No task without owner, deadline, next action</td></tr>
           </tbody></table></div></div>
-    </div>
-    <div class="section-card" style="margin-top:20px;">
-      <div class="section-hdr"><div class="section-hdr-title">Project Quick Summary — First 10 Active Projects</div></div>
-      <div class="table-wrap"><table id="dash-proj-tbl"><thead><tr><th>Project No.</th><th>Project Name</th><th>Client</th><th>Open Tasks</th><th>Overdue</th><th>Due 7D</th><th>Blocked</th><th>P1 Open</th><th>Action</th></tr></thead><tbody></tbody></table></div>
     </div>
   </div>
 
@@ -1434,7 +1440,7 @@ tr:hover .fc {
     </div>
 
     <!-- Today's Schedule + Upcoming reminders -->
-    <div style="display:grid;grid-template-columns:1fr 280px;gap:14px;margin-bottom:14px;">
+    <div class="cal-layout"><!-- 2026-10-08: calendar + sidebar stack on narrow screens -->
       <div class="section-card" style="overflow:hidden;display:flex;flex-direction:column;">
         <!-- Toolbar -->
         <div class="cal-toolbar">
@@ -2193,7 +2199,7 @@ function doSignUp() {
       currentUser={email,displayName:name};
       setUserChip(currentUser); showScreen('app'); startDB();
       resolveUserRole(); applyRoleToUI();
-      setTimeout(fitToScreen, 200);
+      setTimeout(initZoom, 200);   // 2026-10-08: 100 % or the user's own zoom (was: shrink to fit on every sign-in)
     });
   }).catch(err=>{ setBtnLoading('btn-signup',false); showAuthError('signup-error','⚠ '+err.message+' — See fix steps above.'); document.getElementById('domain-banner').style.display=''; });
 }
@@ -2305,7 +2311,15 @@ function allProjectsCompute(){
 }
 /* PEOPLE = own employee list ∪ people SHONE lists for Task Control who are not held here (by ID, e-mail or name; marked SHONE).
    Access roles (Director / department) keep using the dashboard's own list only. */
-function allEmployees(){ if(__allEmpCache) return __allEmpCache; const r = allEmployeesCompute(); __allEmpCache = r; Promise.resolve().then(() => { __allEmpCache = null; }); return r; }
+/* build 2026-10-07 — the Director's A–Z rule: every list of people A–Z by name, case- and accent-insensitive, natural numbers; equal names by
+   Emp code. allEmployees() hands out a sorted COPY (the stored list keeps its order — nothing is rewritten): the Concerned-person panel, the
+   inline select and the Quick Note list are A–Z within their two groups (Directors, then Employees); the Employees table and the calendar
+   tabs are A–Z too, and a new person lands in place by itself. */
+const NAME_COLL = new Intl.Collator('en', { sensitivity: 'base', numeric: true });
+const cmpText = (a, b) => NAME_COLL.compare(String(a == null ? '' : a).trim(), String(b == null ? '' : b).trim());
+const byPerson = (a, b) => cmpText(a && a.name, b && b.name) || cmpText(a && a.empCode, b && b.empCode) || cmpText(a && a.id, b && b.id);
+const sortPeople = list => (list || []).slice().sort(byPerson);
+function allEmployees(){ if(__allEmpCache) return __allEmpCache; const r = sortPeople(allEmployeesCompute()); __allEmpCache = r; Promise.resolve().then(() => { __allEmpCache = null; }); return r; }
 function allEmployeesCompute(){
   const d = SD(); if(!d) return employees;
   /* build 2026-09-22: a person the Admin edited or created in SHONE is shown with SHONE's name, designation, department, reporting manager
@@ -2395,7 +2409,7 @@ function _minFromTop(t) {
   return (hh*60+mm)-_CAL_START*60;
 }
 function _buildTimeGutterHtml() {
-  let s=`<div style="width:56px;min-width:56px;flex-shrink:0;border-right:1px solid var(--border);">
+  let s=`<div class="cal-gutter" style="width:56px;min-width:56px;flex-shrink:0;border-right:1px solid var(--border);">
     <div style="position:relative;height:${_CAL_TOTAL}px;">`;
   for(let h2=_CAL_START;h2<_CAL_END;h2++){
     s+=`<div style="position:absolute;top:${(h2-_CAL_START)*_CAL_PX_HR}px;left:0;right:0;
@@ -2440,7 +2454,7 @@ function _buildDayColHtml(dayEvs,ds,xStyle) {
       <div style="position:absolute;left:0;right:0;top:${i*_CAL_PX_HR+_CAL_PX_HR/2}px;height:1px;
       background:var(--border);opacity:.4;pointer-events:none;"></div>`;
   }
-  return `<div style="flex:1;min-width:0;border-right:1px solid var(--border);position:relative;${xStyle||''}"
+  return `<div style="flex:1;min-width:var(--cal-col,0px);border-right:1px solid var(--border);position:relative;${xStyle||''}"
     ondragover="event.preventDefault()" ondrop="onCalDrop(event,'${ds}')">
     <div style="position:relative;height:${_CAL_TOTAL}px;">${slots}${_buildEventsHtml(dayEvs,ds)}</div>
   </div>`;
@@ -2455,12 +2469,12 @@ function renderWeekView() {
   const el=document.getElementById('cal-title');
   if(el) el.textContent=ws.toLocaleDateString('en-IN',{day:'numeric',month:'short'})+' \u2013 '+we.toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'});
   const ac=CAL_PERSONS[_activeCalPerson]?.color||'#00BFA5';
-  let head=`<div style="display:flex;border-bottom:2px solid ${ac};background:var(--bg2);flex-shrink:0;">
-    <div style="width:56px;min-width:56px;border-right:1px solid var(--border);"></div>`;
+  let head=`<div class="cal-head" style="border-bottom:2px solid ${ac};">
+    <div class="cal-corner" style="width:56px;min-width:56px;border-right:1px solid var(--border);"></div>`;
   days.forEach((d,i)=>{
     const tod=isToday(d);
     head+=`<div onclick="calDate=new Date('${dateStr(d)}T12:00:00');setCalView('day');"
-      style="flex:1;padding:8px 6px;text-align:center;border-right:1px solid var(--border);cursor:pointer;
+      style="flex:1;min-width:var(--cal-col,0px);padding:8px 6px;text-align:center;border-right:1px solid var(--border);cursor:pointer;
       background:${tod?'rgba(0,191,165,.1)':'transparent'};">
       <div style="font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.07em;color:var(--text3);">${DOW[i]}</div>
       <div style="font-size:20px;font-weight:800;color:${tod?ac:'var(--text)'};">${d.getDate()}</div>
@@ -2472,13 +2486,13 @@ function renderWeekView() {
     const ds=dateStr(d);
     cols+=_buildDayColHtml(byDate[ds]||[],ds,isToday(d)?'background:rgba(0,191,165,.02);':'');
   });
-  const body=`<div style="display:flex;flex:1;overflow-y:auto;overflow-x:hidden;">
+  const body=`<div class="cal-body">
     ${_buildTimeGutterHtml()}
     <div style="display:flex;flex:1;min-width:0;">${cols}</div>
   </div>`;
   const wrap=document.getElementById('cal-grid-wrap'); if(!wrap) return;
-  wrap.innerHTML=`<div style="display:flex;flex-direction:column;height:100%;border:1px solid var(--border);border-radius:10px;overflow:hidden;background:var(--surface);">${head}${body}</div>`;
-  const be=wrap.querySelector('[style*="overflow-y:auto"]');
+  wrap.innerHTML=`<div class="cal-frame"><div class="cal-scroll"><div class="cal-inner" style="--cal-col:120px;--cal-min:896px;">${head}${body}</div></div></div>`;   // week: 7 × 120 px + hours
+  const be=wrap.querySelector('.cal-scroll');   // 2026-10-08: the calendar's one scroll box
   if(be){const nm=new Date().getHours()*60+new Date().getMinutes()-_CAL_START*60;be.scrollTop=Math.max(0,nm-_CAL_PX_HR*2);}
 }
 
@@ -2490,20 +2504,20 @@ function renderDayView() {
   const dayEvs=events.filter(ev=>ev.date===ds);
   const ac=CAL_PERSONS[_activeCalPerson]?.color||'#00BFA5';
   const tod=isToday(calDate);
-  const head=`<div style="display:flex;border-bottom:2px solid ${ac};background:var(--bg2);flex-shrink:0;">
-    <div style="width:56px;min-width:56px;border-right:1px solid var(--border);"></div>
+  const head=`<div class="cal-head" style="border-bottom:2px solid ${ac};">
+    <div class="cal-corner" style="width:56px;min-width:56px;border-right:1px solid var(--border);"></div>
     <div style="flex:1;padding:8px 6px;text-align:center;background:${tod?'rgba(0,191,165,.1)':'transparent'};">
       <div style="font-size:9px;font-weight:800;text-transform:uppercase;color:var(--text3);">${calDate.toLocaleDateString('en-IN',{weekday:'short'})}</div>
       <div style="font-size:20px;font-weight:800;color:${tod?ac:'var(--text)'};">${calDate.getDate()}</div>
     </div>
   </div>`;
-  const body=`<div style="display:flex;flex:1;overflow-y:auto;overflow-x:hidden;">
+  const body=`<div class="cal-body">
     ${_buildTimeGutterHtml()}
     <div style="display:flex;flex:1;min-width:0;">${_buildDayColHtml(dayEvs,ds,'')}</div>
   </div>`;
   const wrap=document.getElementById('cal-grid-wrap'); if(!wrap) return;
-  wrap.innerHTML=`<div style="display:flex;flex-direction:column;height:100%;border:1px solid var(--border);border-radius:10px;overflow:hidden;background:var(--surface);">${head}${body}</div>`;
-  const be=wrap.querySelector('[style*="overflow-y:auto"]');
+  wrap.innerHTML=`<div class="cal-frame"><div class="cal-scroll"><div class="cal-inner">${head}${body}</div></div></div>`;
+  const be=wrap.querySelector('.cal-scroll');   // 2026-10-08: the calendar's one scroll box
   if(be){const nm=new Date().getHours()*60+new Date().getMinutes()-_CAL_START*60;be.scrollTop=Math.max(0,nm-_CAL_PX_HR*2);}
 }
 
@@ -2519,8 +2533,8 @@ function renderMonthView() {
   events.forEach(ev=>(evByDate[ev.date]=evByDate[ev.date]||[]).push(ev));
   const DOW=['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
   const ac=CAL_PERSONS[_activeCalPerson]?.color||'#00BFA5';
-  let html=`<div style="display:grid;grid-template-columns:repeat(7,1fr);border:1px solid var(--border);border-radius:10px;overflow:hidden;">`;
-  DOW.forEach(d=>{html+=`<div style="padding:9px 8px;text-align:center;background:var(--bg2);border-bottom:2px solid ${ac};border-right:1px solid var(--border);font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.07em;color:var(--text3);">${d}</div>`;});
+  let html=`<div class="cal-month-grid" style="display:grid;grid-template-columns:repeat(7,1fr);border:1px solid var(--border);border-radius:10px;">`;
+  DOW.forEach(d=>{html+=`<div class="cal-dow" style="padding:9px 8px;text-align:center;background:var(--bg2);border-bottom:2px solid ${ac};border-right:1px solid var(--border);font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.07em;color:var(--text3);">${d}</div>`;});
   for(let i=0;i<42;i++){
     const d=new Date(ms); d.setDate(ms.getDate()+i);
     const ds=dateStr(d);
@@ -2539,7 +2553,7 @@ function renderMonthView() {
   }
   html+='</div>';
   const wrap=document.getElementById('cal-grid-wrap');
-  if(wrap) wrap.innerHTML=`<div style="padding:4px;height:100%;overflow:auto;">${html}</div>`;
+  if(wrap) wrap.innerHTML=`<div class="cal-month-scroll">${html}</div>`;
 }
 
 function onCalGridClick(e,ds,hour) {
@@ -3199,7 +3213,7 @@ function initFirebase() {
     applyRoleToUI();     // ← apply permissions to UI
     showScreen('app');
     startDB();
-    setTimeout(fitToScreen, 300);
+    setTimeout(initZoom, 300);   // 2026-10-08: 100 % or the user's own zoom (was: shrink to fit on every sign-in)
   } else {
     showScreen('auth');
   }
@@ -3568,15 +3582,12 @@ function renderDashboard() {
     {lbl:'Done This Week',val:k.dw,sub:'Closed this week',kc:'var(--green)'},
   ];
   const filterKeys=['active','overdue','duetoday','due7','blocked','p1','done'];
-  document.getElementById('kpi-grid').innerHTML=cards.map((c,i)=>`<div class="kpi-card" style="--kc:${c.kc};cursor:pointer;" 
-    onclick="_dashFilter=null;dashCardClick('${filterKeys[i]}')" 
-    onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 8px 24px rgba(0,0,0,.3)'" 
-    onmouseout="this.style.transform='';this.style.boxShadow=''">
-    <div class="kpi-label">${c.lbl}</div>
+  const KPI_ICO=['<path d="M4 6h16M4 12h16M4 18h10"/>','<path d="M12 3 2 21h20L12 3z"/><path d="M12 10v5M12 18v.5"/>','<circle cx="12" cy="13" r="8"/><path d="M12 9v4l3 2M9 2h6"/>','<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/>','<path d="M8 2h8l6 6v8l-6 6H8l-6-6V8z"/><path d="M8 12h8"/>','<path d="M12 2s5 5 5 10a5 5 0 0 1-10 0c0-2 1-4 2-5 0 2 1 3 2 3 0-3-1-5 1-8z"/>','<circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/>'];
+  document.getElementById('kpi-grid').innerHTML=cards.map((c,i)=>`<div class="kpi-card" style="--kc:${c.kc};" title="${c.lbl}" onclick="_dashFilter=null;dashCardClick('${filterKeys[i]}')">
+    <div class="kpi-top"><span class="kpi-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${KPI_ICO[i]}</svg></span><div class="kpi-label">${c.lbl}</div></div>
     <div class="kpi-value">${c.val}</div>
     <div class="kpi-sub">${c.sub}</div>
-    <div style="font-size:9px;color:var(--kc);margin-top:4px;opacity:.7;">Click to view →</div>
-  </div>`).join('');
+  </div>`).join('');   // 2026-10-08 SHONE UI v1: icon tiles — the same seven values and the same click
 
   document.querySelector('#dash-dept-tbl tbody').innerHTML=calcDeptSummary(tasks).map(r=>`<tr><td style="font-weight:600;color:${(r.bl||r.ov||r.p1)?'var(--text)':'var(--text2)'};">${r.dept}</td>${nCell(r.open)}${nCell(r.ov,'c-red')}${nCell(r.d7,'c-amber')}${nCell(r.bl,'c-red')}${nCell(r.wt,'c-amber')}${nCell(r.p1,'c-purple')}<td>${bAction(r.action)}</td></tr>`).join('');
 
@@ -4323,10 +4334,9 @@ function renderEmployees() {
   });
 
   // Sort
-  filtered.sort((a,b)=>{
-    const av = (a[empSortCol]||'').toString().toLowerCase();
-    const bv = (b[empSortCol]||'').toString().toLowerCase();
-    return empSortDir==='asc' ? av.localeCompare(bv) : bv.localeCompare(av);
+  filtered.sort((a,b)=>{   // build 2026-10-07: case- and accent-insensitive (the A–Z rule); ties by name
+    const c = cmpText(a[empSortCol], b[empSortCol]) || byPerson(a, b);
+    return empSortDir==='asc' ? c : -c;
   });
 
   // Update sort icons
@@ -6454,9 +6464,10 @@ function setZoom(level) {
   if(lbl) lbl.textContent = Math.round(_zoom*100)+'%';
   localStorage.setItem('dcd-zoom', _zoom);
 }
-function zoomIn()  { setZoom(_zoom + 0.1); }
-function zoomOut() { setZoom(_zoom - 0.1); }
-function resetZoom(){ setZoom(1.0); }
+function _zoomByUser(){ try{ localStorage.setItem('dcd-zoom-by-user','1'); }catch(e){} }   // 2026-10-08
+function zoomIn()  { _zoomByUser(); setZoom(_zoom + 0.1); }
+function zoomOut() { _zoomByUser(); setZoom(_zoom - 0.1); }
+function resetZoom(){ _zoomByUser(); setZoom(1.0); }
 function fitToScreen() {
   const avail = window.innerWidth || 1200;
   const target = 1400; // typical dashboard content width
@@ -6465,8 +6476,8 @@ function fitToScreen() {
 }
 function initZoom() {
   const saved = parseFloat(localStorage.getItem('dcd-zoom')||'0');
-  if(saved > 0) setZoom(saved);
-  else fitToScreen();
+  if(saved > 0 && localStorage.getItem('dcd-zoom-by-user')) setZoom(saved);
+  else setZoom(1.0);   // 2026-10-08 SHONE UI v1: the layout adapts to the screen — 100 % unless the user picked a zoom
 }
 
 
@@ -7080,8 +7091,8 @@ function renderMonthView() {
   const DOW=['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
   const accentColor = CAL_PERSONS[_activeCalPerson]?.color || '#00BFA5';
 
-  let html=`<div style="display:grid;grid-template-columns:repeat(7,1fr);border:1px solid var(--border);border-radius:10px;overflow:hidden;">`;
-  DOW.forEach(d=>{ html+=`<div style="padding:9px 8px;text-align:center;background:var(--bg2);border-bottom:2px solid ${accentColor};border-right:1px solid var(--border);font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.07em;color:var(--text3);">${d}</div>`; });
+  let html=`<div class="cal-month-grid" style="display:grid;grid-template-columns:repeat(7,1fr);border:1px solid var(--border);border-radius:10px;">`;
+  DOW.forEach(d=>{ html+=`<div class="cal-dow" style="padding:9px 8px;text-align:center;background:var(--bg2);border-bottom:2px solid ${accentColor};border-right:1px solid var(--border);font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.07em;color:var(--text3);">${d}</div>`; });
   for(let i=0;i<42;i++){
     const d=new Date(ms); d.setDate(ms.getDate()+i);
     const ds=dateStr(d);
@@ -7104,7 +7115,7 @@ function renderMonthView() {
   }
   html+='</div>';
   const wrap=document.getElementById('cal-grid-wrap');
-  if(wrap) wrap.innerHTML=`<div style="padding:4px;height:100%;overflow:auto;">${html}</div>`;
+  if(wrap) wrap.innerHTML=`<div class="cal-month-scroll">${html}</div>`;
 }
 
 
@@ -7577,7 +7588,13 @@ function switchCalPerson(person) {
   renderCalSidebar();
 }
 
+function sortCalTabs() {   // build 2026-10-07: the personal calendar tabs A–Z by name (not a fixed order)
+  const box = document.getElementById('cal-person-tabs'); if (!box) return;
+  const spacer = [...box.children].find(c => !c.classList.contains('cal-person-tab')) || null;
+  [...box.querySelectorAll('.cal-person-tab')].sort((a, b) => cmpText(a.textContent, b.textContent)).forEach(t => box.insertBefore(t, spacer));
+}
 function applyCalendarPersonAccess() {
+  sortCalTabs();
   const userPerson = getCalPersonForUser();
   if(hasFullAccess()) {
     // Director: show all 3 tabs
@@ -7943,5 +7960,403 @@ document.addEventListener('DOMContentLoaded', ()=>{
   <button class="rs-fab" id="rs-fab" onclick="event.stopPropagation();toggleRS()" title="Quick Navigation — Fast page switcher">⚡</button>
 </div>
 
+<style id="shone-ui">
+/* SHONE UI v1 · Director Control Dashboard · generated by tools/ui/apply_ui.py from tools/ui/core.css + tools/ui/tasks.css — edit those, not this */
+/* ═══ SHONE UI v1 (8-Oct-2026) — the common design system of SHONE and every module ═══════════════════════════════════════
+   ONE source: tools/ui/core.css. tools/ui/apply_ui.py expands the double-brace role placeholders with each module's own selectors
+   (tools/ui/modules.py), appends that module's layout fixes, and writes the result as one style element (id shone-ui) at the END
+   of the page body — so it wins ties against the module's own stylesheet and against CSS the module injects into the head later.
+   Brand: logo teal #06A997 with deep ink; dark, bold, high-contrast, button-like tabs; consistent buttons; visible scrollbars.
+   Nothing here changes behaviour: no logic, no data; every control that was usable stays visible and usable. */
+
+/* ── tokens (light) ───────────────────────────────────────────────────────────────────────────────────────────────────── */
+:root{
+  --sh-brand:#06A997; --sh-brand-2:#2FBF9F; --sh-brand-600:#05917f; --sh-brand-700:#047a6c; --sh-brand-800:#035f55;
+  --sh-brand-50:#e8f7f4; --sh-brand-100:#c9eee6;
+  --sh-ink:#0f2229; --sh-ink-2:#33474f; --sh-muted:#5b6e76;
+  --sh-dark:#14303a; --sh-dark-2:#1d4350; --sh-dark-3:#2f6170; --sh-on-dark:#f4fbfa;
+  --sh-line:#d3dee1; --sh-line-2:#e6edef;
+  --sh-plane:#eef3f4; --sh-surface:#ffffff; --sh-surface-2:#f6f9fa;
+  --sh-th:#12303a; --sh-th-text:#f0f8f6; --sh-th-line:#06A997;
+  --sh-row-hover:#e6f5f1; --sh-zebra:#f7fafb;
+  --sh-danger:#b42318; --sh-danger-2:#8f1d14; --sh-success:#067647; --sh-success-2:#05603a; --sh-warn:#b54708; --sh-warn-2:#93370d;
+  --sh-good:#0ca30c; --sh-warning:#fab219; --sh-serious:#ec835a; --sh-critical:#d03b3b;
+  --sh-off-bg:#cfd8db; --sh-off-text:#4a5a61;
+  --sh-r:10px; --sh-r-sm:8px; --sh-r-lg:14px;
+  --sh-shadow:0 1px 2px rgba(8,24,30,.06),0 2px 8px rgba(8,24,30,.06);
+  --sh-shadow-lg:0 12px 32px rgba(8,24,30,.18);
+  --sh-ring:0 0 0 3px rgba(47,191,159,.55);
+  --sh-h:36px; --sh-h-sm:30px; --sh-h-xs:26px;
+  --sh-sb:12px; --sh-sb-thumb:#64777f; --sh-sb-thumb-h:#047a6c; --sh-sb-track:#dfe7ea;
+  --sh-input-line:#b3c2c7; --sh-outline-hover-bg:#e8f7f4; --sh-outline-hover-text:#035f55;
+  --sh-font:"Segoe UI Variable Text","Segoe UI",system-ui,-apple-system,Roboto,"Helvetica Neue",Arial,sans-serif;
+  --sh-mono:ui-monospace,"Cascadia Mono",Consolas,"SF Mono",Menlo,monospace;
+  --sh-pad:clamp(10px,1.3vw,22px);
+}
+/* ── tokens (dark — only for modules that have a dark theme: html[data-theme=dark]) ────────────────────────────────────── */
+html[data-theme=dark]{
+  --sh-ink:#e7f1f3; --sh-ink-2:#bccbd0; --sh-muted:#93a7ae;
+  --sh-dark:#1f4250; --sh-dark-2:#285766; --sh-dark-3:#4a8595; --sh-on-dark:#f4fbfa;
+  --sh-line:#2c414a; --sh-line-2:#22363e;
+  --sh-plane:#0d171b; --sh-surface:#142329; --sh-surface-2:#1a2d35;
+  --sh-th:#0b1b20; --sh-th-text:#e9f6f3; --sh-row-hover:#173b3b; --sh-zebra:#172930;
+  --sh-off-bg:#2a3a40; --sh-off-text:#93a7ae;
+  --sh-sb-thumb:#6f8f99; --sh-sb-track:#16262c;
+  --sh-input-line:#3b545d; --sh-outline-hover-bg:#173f3a; --sh-outline-hover-text:#e7fbf6;
+  --sh-shadow:0 1px 2px rgba(0,0,0,.35),0 2px 8px rgba(0,0,0,.25);
+}
+
+/* ── scrollbars: always visible, thick enough to grab, high contrast (Chrome / Edge / Safari; Firefox below) ───────────── */
+::-webkit-scrollbar{width:var(--sh-sb);height:var(--sh-sb)}
+::-webkit-scrollbar-track{background:var(--sh-sb-track);border-radius:8px}
+::-webkit-scrollbar-thumb{background:var(--sh-sb-thumb);border-radius:8px;border:2px solid var(--sh-sb-track);min-width:40px;min-height:40px}
+::-webkit-scrollbar-thumb:hover{background:var(--sh-sb-thumb-h)}
+::-webkit-scrollbar-corner{background:var(--sh-sb-track)}
+@supports (-moz-appearance:none){ *{scrollbar-color:var(--sh-sb-thumb) var(--sh-sb-track);scrollbar-width:auto} }
+
+/* ── base ─────────────────────────────────────────────────────────────────────────────────────────────────────────────── */
+:focus-visible{outline:3px solid var(--sh-brand-2);outline-offset:2px}
+.sh-num,td.num{font-variant-numeric:tabular-nums}
+
+/* ── page container: use the whole width, compact even padding (no empty side margins on wide screens) ─────────────────── */
+.sh-page,.page{max-width:none;padding:var(--sh-pad)}
+
+/* ── tabs: clearly defined dark buttons with bright text; active = brand teal; disabled = grey dashed ─────────────────── */
+.sh-tabs,.nav-tabs,.cal-view-btns,.cal-person-tabs{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.sh-tab,.nav-tab,.cal-view-btn,.cal-person-tab{
+  display:inline-flex;align-items:center;justify-content:center;gap:6px;
+  min-height:34px;padding:6px 14px;border-radius:var(--sh-r-sm);
+  background:var(--sh-dark);color:var(--sh-on-dark);border:1px solid var(--sh-dark-3);
+  font-family:inherit;font-size:13px;font-weight:700;letter-spacing:.01em;line-height:1.15;white-space:nowrap;text-decoration:none;
+  box-shadow:inset 0 -2px 0 rgba(0,0,0,.22);cursor:pointer;opacity:1;
+  transition:background-color .15s,border-color .15s,box-shadow .15s,color .15s
+}
+.sh-tab:hover,.nav-tab:hover,.cal-view-btn:hover,.cal-person-tab:hover{background:var(--sh-dark-2);border-color:var(--sh-brand-2);color:#fff}
+.sh-tab.on,.nav-tab.active,.cal-view-btn.active,.cal-person-tab.active{
+  background:linear-gradient(180deg,var(--sh-brand-600),var(--sh-brand-700));color:#fff;border-color:var(--sh-brand-2);
+  box-shadow:inset 0 -3px 0 var(--sh-brand-2),0 2px 8px rgba(4,122,108,.35)
+}
+.sh-tab:disabled{background:var(--sh-off-bg);color:var(--sh-off-text);border:1px dashed #8a9aa1;box-shadow:none;cursor:not-allowed;opacity:.9}
+
+/* ── buttons: one size system; dark (default) · teal (primary) · red · green · amber · outline (light actions in tables) ── */
+.sh-btn,.btn,.cal-nav-btn,.cal-today-btn,.zoom-btn,.btn-tpl,label.btn-upload,.setup-dismiss,.fb-err-dismiss{
+  display:inline-flex;align-items:center;justify-content:center;gap:6px;
+  min-height:var(--sh-h);padding:0 14px;border-radius:var(--sh-r-sm);
+  background:var(--sh-dark);color:var(--sh-on-dark);border:1px solid var(--sh-dark);
+  font-family:inherit;font-size:13px;font-weight:700;letter-spacing:.01em;line-height:1.15;white-space:nowrap;text-decoration:none;
+  box-shadow:0 1px 2px rgba(8,24,30,.18);cursor:pointer;
+  transition:background-color .15s,border-color .15s,box-shadow .15s,color .15s,transform .05s
+}
+.sh-btn:hover,.btn:hover,.cal-nav-btn:hover,.cal-today-btn:hover,.zoom-btn:hover,.btn-tpl:hover,label.btn-upload:hover,.setup-dismiss:hover,.fb-err-dismiss:hover{background:var(--sh-dark-2);border-color:var(--sh-dark-2);color:#fff;box-shadow:0 3px 10px rgba(8,24,30,.22)}
+.sh-btn:active,.btn:active,.cal-nav-btn:active,.cal-today-btn:active,.zoom-btn:active,.btn-tpl:active,label.btn-upload:active,.setup-dismiss:active,.fb-err-dismiss:active{transform:translateY(1px)}
+.sh-btn.primary,.btn.btn-primary,.auth-btn,.cal-today-btn{background:var(--sh-brand-700);border-color:var(--sh-brand-700);color:#fff}
+.sh-btn.primary:hover,.btn.btn-primary:hover,.auth-btn:hover,.cal-today-btn:hover{background:var(--sh-brand-800);border-color:var(--sh-brand-800);color:#fff}
+.sh-btn.danger,.btn.btn-danger,.btn-logout{background:var(--sh-danger);border-color:var(--sh-danger);color:#fff}
+.sh-btn.danger:hover,.btn.btn-danger:hover,.btn-logout:hover{background:var(--sh-danger-2);border-color:var(--sh-danger-2);color:#fff}
+.sh-btn.success,.btn.btn-success{background:var(--sh-success);border-color:var(--sh-success);color:#fff}
+.sh-btn.success:hover,.btn.btn-success:hover{background:var(--sh-success-2);border-color:var(--sh-success-2);color:#fff}
+.sh-btn.warn{background:var(--sh-warn);border-color:var(--sh-warn);color:#fff}
+.sh-btn.warn:hover{background:var(--sh-warn-2);border-color:var(--sh-warn-2);color:#fff}
+.sh-btn.outline,.btn.btn-sm.btn-ghost,.qn-card-pin,.qn-card-del,.plus-note-btn,.plus-remark-btn{background:var(--sh-surface);color:var(--sh-ink);border:1.5px solid var(--sh-dark-3);box-shadow:none}
+.sh-btn.outline:hover,.btn.btn-sm.btn-ghost:hover,.qn-card-pin:hover,.qn-card-del:hover,.plus-note-btn:hover,.plus-remark-btn:hover{background:var(--sh-outline-hover-bg);color:var(--sh-outline-hover-text);border-color:var(--sh-brand-700)}
+.sh-btn.sm,.btn.btn-sm,.btn-tpl,label.btn-upload{min-height:var(--sh-h-sm);padding:0 11px;font-size:12.5px}
+.sh-btn.xs{min-height:var(--sh-h-xs);padding:0 8px;font-size:12px;border-radius:7px}
+.sh-btn:disabled,.btn:disabled,.auth-btn:disabled{background:var(--sh-off-bg);color:var(--sh-off-text);border-color:var(--sh-off-bg);box-shadow:none;cursor:not-allowed;transform:none;opacity:.85}
+
+/* ── cards & KPI tiles (label · value in ink · sub-line; the colour lives in the accent bar, never in the number) ────────── */
+.sh-card,.section-card,.proj-card,.auth-card{background:var(--sh-surface);border:1px solid var(--sh-line);border-radius:var(--sh-r-lg);box-shadow:var(--sh-shadow)}
+.sh-kpi,.kpi-card{background:var(--sh-surface);border:1px solid var(--sh-line);border-radius:12px;box-shadow:var(--sh-shadow);padding:12px 14px}
+.sh-kpi .lbl,.kpi-label{font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--sh-muted)}
+.sh-kpi .val,.kpi-value{font-family:var(--sh-font);font-size:26px;font-weight:800;line-height:1.1;letter-spacing:-.01em;color:var(--sh-ink)}
+.sh-kpi .sub,.kpi-sub{font-size:12px;line-height:1.35;color:var(--sh-muted)}
+
+/* ── tables: dark heading row with bright text, compact rows, zebra, hover; scroll boxes keep the heading on top ────────── */
+.sh-table th,thead th{background:var(--sh-th);color:var(--sh-th-text);border-bottom:2px solid var(--sh-th-line);font-size:11.5px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;white-space:nowrap;padding:8px 10px;vertical-align:middle}
+.sh-table td,tbody td{padding:7px 10px;border-bottom:1px solid var(--sh-line-2);vertical-align:middle}
+.sh-table.zebra tbody tr:nth-child(even) > td{background:var(--sh-zebra)}
+.sh-table tbody tr:hover > td,tbody tr:hover > td{background:var(--sh-row-hover)}
+.sh-scroll,.table-wrap,.emp-table-wrap{overflow:auto;max-width:100%;-webkit-overflow-scrolling:touch}
+
+/* ── form fields ──────────────────────────────────────────────────────────────────────────────────────────────────────── */
+.sh-input,.form-group input,.form-group select,.form-group textarea,.filters-bar select,.filters-bar input,.filter-row select,.filter-row input,.emp-filters select,.emp-filters input,.auth-input,.qn-compose select,#pf-status{min-height:34px;border:1px solid var(--sh-input-line);border-radius:var(--sh-r-sm);background-color:var(--sh-surface);color:var(--sh-ink);font-family:inherit;font-size:13px}
+.sh-input:focus,.form-group input:focus,.form-group select:focus,.form-group textarea:focus,.filters-bar select:focus,.filters-bar input:focus,.filter-row select:focus,.filter-row input:focus,.emp-filters select:focus,.emp-filters input:focus,.auth-input:focus,.qn-compose select:focus,#pf-status:focus{border-color:var(--sh-brand-700);box-shadow:var(--sh-ring);outline:none}
+
+/* ── dialogs: never wider than the screen, never taller; full-screen sheet on phones ──────────────────────────────────── */
+.sh-modal,.modal{max-width:calc(100vw - 24px);max-height:calc(100vh - 24px);overflow:auto}
+@media (max-width:640px){ .sh-modal,.modal{max-width:100vw;width:100vw;max-height:100vh;border-radius:0} }
+
+/* ── generic helpers used by new markup (User Master, Director Control Dashboard) ─────────────────────────────────────── */
+.sh-chip{display:inline-flex;align-items:center;gap:5px;padding:2px 9px;border-radius:999px;font-size:11.5px;font-weight:700;line-height:1.6;white-space:nowrap;background:var(--sh-surface-2);color:var(--sh-ink-2);border:1px solid var(--sh-line)}
+.sh-chip.ok{background:#dcf5e6;color:#05603a;border-color:#9ddbb6}
+.sh-chip.warn{background:#fff1d6;color:#7a4a00;border-color:#f3cf86}
+.sh-chip.bad{background:#fde4e2;color:#8f1d14;border-color:#f1aaa3}
+.sh-chip.info{background:#e1effc;color:#14457e;border-color:#a9c9ef}
+.sh-chip.teal{background:var(--sh-brand-50);color:var(--sh-brand-800);border-color:var(--sh-brand-100)}
+.sh-chip.dark{background:var(--sh-dark);color:var(--sh-on-dark);border-color:var(--sh-dark)}
+.sh-dot{display:inline-block;width:9px;height:9px;border-radius:50%;flex:0 0 auto;vertical-align:middle}
+.sh-muted{color:var(--sh-muted)}
+.sh-toolbar{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.sh-search{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--sh-input-line);border-radius:var(--sh-r-sm);background:var(--sh-surface);padding:0 8px;min-height:34px}
+.sh-search:focus-within{border-color:var(--sh-brand-700);box-shadow:var(--sh-ring)}
+.sh-search input{border:0!important;outline:0;background:transparent;box-shadow:none!important;min-height:30px;padding:0 2px;font:inherit;color:inherit;flex:1;min-width:0;width:auto}
+.sh-sr{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+@media (prefers-reduced-motion:reduce){ .sh-btn,.sh-tab{transition:none} }
+
+/* ── tasks layout ── */
+/* Director Control Dashboard (Task Control) — premium executive redesign on the SHONE design system.
+   Both themes kept (dark default + light toggle). Header and tab bar are dark in both themes, like every SHONE module. */
+:root,[data-theme="dark"]{
+  --corp-teal:#2FBF9F;--corp-teal-d:#06A997;--blue:#2FBF9F;--blue-dim:#06A997;--blue-glow:rgba(47,191,159,.14);
+  --bg:#0b1519;--bg2:#0f1f25;--surface:#13262d;--surface2:#183139;--border:#23414a;--border2:#2f5662;
+  --text:#e9f3f4;--text2:#abc3c9;--text3:#7f9ba3;--header-bg:#0b1a1f;
+  --sans:var(--sh-font);--mono:var(--sh-mono);
+}
+[data-theme="light"]{
+  --corp-teal:#047a6c;--corp-teal-d:#035f55;--blue:#047a6c;--blue-dim:#035f55;--blue-glow:rgba(4,122,108,.10);
+  --bg:#edf2f3;--bg2:#e1e9eb;--surface:#ffffff;--surface2:#f5f9fa;--border:#d1dee1;--border2:#b4c8cd;
+  --text:#0f2229;--text2:#33474f;--text3:#5b6e76;--header-bg:#0b1a1f;
+}
+:root,html[data-theme=light],html[data-theme=dark]{--sh-surface:var(--surface);--sh-surface-2:var(--surface2);--sh-line:var(--border);--sh-line-2:var(--border);--sh-ink:var(--text);--sh-muted:var(--text3);--sh-plane:var(--bg)}
+html[data-theme=light]{--sh-dark:#14303a;--sh-dark-2:#1d4350;--sh-dark-3:#2f6170;--sh-th:#12303a;--sh-row-hover:#e6f5f1;--sh-input-line:#b3c2c7;--sh-sb-track:#dfe7ea;--sh-sb-thumb:#64777f}
+html{font-size:14px}
+body{font-family:var(--sh-font)}
+
+/* ── top: header + tab bar stay together at the top while the page scrolls ── */
+.app-top{position:sticky;top:0;z-index:120;box-shadow:0 2px 10px rgba(0,0,0,.25)}
+.app-header{position:static;background:linear-gradient(120deg,#08161b 0%,#0d262d 60%,#0f2f36 100%)!important;backdrop-filter:none;border-bottom:1px solid #1d3d46;
+  padding:8px var(--sh-pad);gap:10px 14px;flex-wrap:wrap;min-height:58px;color:#eef7f6}
+.app-brand{padding:0;min-width:0;gap:10px}
+.app-brand img{height:40px!important;width:auto!important;max-width:120px;background:#fff;border-radius:9px;padding:3px 7px;object-fit:contain}
+.brand-title{font-size:16.5px;font-weight:800;letter-spacing:.005em;color:#ffffff;line-height:1.15}
+.brand-sub{font-size:10.5px;color:#8fb2b9;letter-spacing:.04em}
+.conn-pill{font-size:10.5px;padding:3px 10px;border-radius:999px}
+.conn-live{background:rgba(47,191,159,.16);color:#7fe3c9;border-color:rgba(47,191,159,.45)}
+.conn-live .conn-dot{background:#2FBF9F}
+.hdr-tools{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.zoom-controls{display:inline-flex;align-items:center;gap:2px;background:#122f37;border:1px solid #2d5a66;border-radius:9px;padding:2px}
+.zoom-btn{min-height:26px!important;min-width:28px;padding:0 7px!important;background:transparent!important;border:0!important;box-shadow:none!important;color:#e8f4f2!important;font-weight:800;border-radius:7px;font-size:13px!important}
+.zoom-btn:hover{background:#1f4a56!important}
+.zoom-label{font-size:12px;font-weight:800;color:#fff;min-width:42px;text-align:center}
+.backup-status{display:inline-flex;align-items:center;gap:6px;font-size:11.5px;font-weight:600;color:#d3e8e5;background:#122f37;border:1px solid #2d5a66;border-radius:999px;padding:4px 11px;white-space:nowrap}
+.backup-dot{width:8px;height:8px;border-radius:50%;background:#2FBF9F;flex:0 0 auto}
+.hdr-tools > .btn{min-height:30px;font-size:12px!important;padding:0 11px!important}
+.header-right{gap:10px;flex-wrap:wrap;justify-content:flex-end}
+.header-date{color:#a8c7cc;font-size:11.5px;white-space:nowrap}
+.theme-toggle{background:#122f37;border:1px solid #2d5a66;border-radius:999px;padding:3px 8px}
+.theme-switch{background:#0b1d22;border-color:#3a6a77}
+.user-chip{background:#122f37;border-color:#2d5a66;color:#fff;min-height:32px}
+.user-name{color:#fff}
+.btn-logout{min-height:32px;padding:0 12px!important;font-size:12px!important}
+/* the tab bar: every tab a clear button; all visible on desktops (wraps), one scrollable row on phones */
+.main-nav{background:#0d2228;border-bottom:2px solid var(--sh-brand)}
+.nav-tabs{padding:8px var(--sh-pad);gap:6px;flex-wrap:wrap;overflow:visible;background:transparent;border-bottom:0}
+.nav-tab{text-transform:none;letter-spacing:.01em;font-size:12.5px;min-height:34px;padding:6px 13px;background:#173740;border:1px solid #33636f;color:#f1f9f8;border-bottom-width:1px}
+.nav-tab:hover{background:#21505c;color:#fff}
+.nav-tab.active{color:#fff;border-bottom-color:var(--sh-brand-2)}
+@media (max-width:640px){
+  .nav-tabs{flex-wrap:nowrap;overflow-x:auto;padding:6px 10px}
+  .header-date{display:inline-block;font-size:10.5px}
+  .brand-title{font-size:14.5px}
+}
+
+/* ── page container ── */
+.page{padding:14px var(--sh-pad)}
+.page-title{font-size:19px;font-weight:800;letter-spacing:-.005em;margin-bottom:2px;color:var(--text)}
+.page-sub{font-size:12.5px;color:var(--text2);margin-bottom:12px}
+
+/* ── Director Control Dashboard layout ── */
+.dash-head{display:flex;align-items:flex-end;justify-content:space-between;gap:10px 16px;flex-wrap:wrap;margin-bottom:12px}
+.dash-head .page-sub{margin-bottom:0}
+.dash-legend{display:flex;gap:12px;flex-wrap:wrap;font-size:11.5px;color:var(--text2)}
+.dash-legend span{display:inline-flex;align-items:center;gap:5px}
+.kpi-grid{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:14px}
+.kpi-grid > .kpi-card{flex:1 1 160px;min-width:0}
+.kpi-card{position:relative;overflow:hidden;cursor:pointer;padding:12px 14px 12px;border-radius:14px;display:flex;flex-direction:column;gap:6px;min-height:112px;
+  background:linear-gradient(180deg,color-mix(in srgb,var(--kc,var(--blue)) 9%,var(--surface)) 0%,var(--surface) 70%);transition:transform .15s,box-shadow .15s,border-color .15s}
+.kpi-card::before{height:4px;background:var(--kc,var(--blue))}
+.kpi-card:hover{transform:translateY(-2px);box-shadow:var(--sh-shadow-lg);border-color:color-mix(in srgb,var(--kc,var(--blue)) 55%,var(--border))}
+.kpi-top{display:flex;align-items:center;gap:8px;min-width:0}
+.kpi-ico{width:28px;height:28px;flex:0 0 28px;border-radius:9px;display:grid;place-items:center;color:var(--kc,var(--blue));background:color-mix(in srgb,var(--kc,var(--blue)) 16%,transparent);border:1px solid color-mix(in srgb,var(--kc,var(--blue)) 35%,transparent)}
+.kpi-ico svg{width:16px;height:16px}
+.kpi-label{margin:0;font-size:11px;letter-spacing:.06em;color:var(--text2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.kpi-value{font-family:var(--sh-font)!important;font-size:32px!important;font-weight:800!important;color:var(--text)!important;line-height:1}
+.kpi-sub{margin:0;font-size:11.5px;color:var(--text3)}
+.dash-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(300px,380px);gap:14px;align-items:start}
+.dash-main,.dash-side{display:flex;flex-direction:column;gap:14px;min-width:0}
+.dash-main .section-card,.dash-side .section-card,.dash-ref .section-card{margin:0!important}
+.dash-ref{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.5fr);gap:14px;margin-top:14px;align-items:start}
+@media (max-width:1180px){ .dash-grid{grid-template-columns:minmax(0,1fr)} .dash-ref{grid-template-columns:minmax(0,1fr)} }
+.section-card{border-radius:14px;box-shadow:var(--sh-shadow)}
+.section-hdr{padding:10px 14px;gap:8px;background:linear-gradient(180deg,var(--surface2),var(--surface));border-radius:14px 14px 0 0}
+.section-hdr-title{font-size:12px;font-weight:800;letter-spacing:.06em;color:var(--text)}
+.section-hdr .hdr-note{margin-left:auto;font-size:11px;color:var(--text3)}
+#page-dashboard .table-wrap{max-height:none!important}
+#dash-dept-tbl td,#dash-proj-tbl td{padding:7px 10px}
+#dash-dept-tbl td:first-child{white-space:nowrap}
+.rules-grid{grid-template-columns:1fr;gap:10px;padding:12px 14px}
+.rule-block{border-radius:10px;padding:10px 12px}
+.focus-table td{font-size:12px}
+.focus-table td:nth-child(1){color:var(--corp-teal);font-weight:700;white-space:nowrap}
+.focus-table td:nth-child(3){color:var(--amber)}
+@media (min-width:1181px) and (max-width:1500px){ .rules-grid{grid-template-columns:1fr} }
+
+/* number colours in the summary tables (the classes existed but had no style) */
+.c-red{color:var(--red)!important;font-weight:800}
+.c-amber{color:var(--amber)!important;font-weight:800}
+.c-purple{color:var(--purple)!important;font-weight:800}
+.c-green{color:var(--green)!important}
+.c-gray{color:var(--text3)!important;opacity:.75}
+.c-text2{color:var(--text2)!important}
+.mono{font-family:var(--mono)}
+.sm{font-size:11.5px}
+.empty-state{text-align:center;color:var(--text3);padding:22px 12px!important;font-size:12.5px}
+.empty-icon{font-size:26px;margin-bottom:6px}
+
+/* ── Quick Notes (dashboard side column) ── */
+.qn-panel{background:var(--surface);border:1px solid var(--border);border-radius:14px;box-shadow:var(--sh-shadow);overflow:hidden}
+.qn-header{display:flex;align-items:center;gap:8px;padding:10px 14px;cursor:pointer;background:linear-gradient(180deg,var(--surface2),var(--surface));border-bottom:1px solid var(--border)}
+.qn-header-title{flex:1;font-size:12px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--text)}
+.qn-badge{font-size:11px;font-weight:800;background:var(--sh-brand-700);color:#fff;border-radius:999px;padding:1px 9px;white-space:nowrap}
+.qn-toggle{color:var(--text2);font-size:13px}
+.qn-body{padding:12px 14px;display:flex;flex-direction:column;gap:10px}
+.qn-compose{display:grid;grid-template-columns:minmax(0,1fr);gap:8px}
+.qn-compose > div{flex-direction:row!important;gap:8px!important}
+.qn-compose > div > .btn{flex:1}
+.qn-compose select{width:100%}
+.qn-textarea{width:100%;min-height:64px;resize:vertical;padding:8px 10px;border-radius:8px;border:1px solid var(--sh-input-line);background:var(--surface2);color:var(--text);font:inherit;font-size:13px}
+.qn-textarea:focus{outline:none;border-color:var(--sh-brand-700);box-shadow:var(--sh-ring)}
+.qn-cards{display:flex;flex-direction:column;gap:8px;max-height:min(460px,60vh);overflow:auto;padding-right:2px}
+.qn-card{background:var(--surface2);border:1px solid var(--border);border-left:4px solid var(--corp-teal);border-radius:10px;padding:8px 10px}
+.qn-card.pinned{border-left-color:#fab219}
+.qn-card-tag{font-size:11px;font-weight:800;color:var(--text2);text-transform:capitalize}
+.qn-card-text{font-size:13px;line-height:1.45;color:var(--text);overflow-wrap:anywhere}
+.qn-card-meta{display:flex;gap:8px;flex-wrap:wrap;font-size:11px;color:var(--text3);margin-top:4px}
+.qn-card-pin,.qn-card-del{min-height:24px!important;min-width:26px;padding:0 6px!important;font-size:12px!important;border-radius:6px}
+.qn-card-del:hover{background:var(--sh-danger)!important;color:#fff!important;border-color:var(--sh-danger)!important}
+
+/* banners whose show / hide classes had no style: they now follow the code (hidden until the code shows them) */
+.access-denied-banner{display:none;align-items:flex-start;gap:10px;flex-direction:column;background:color-mix(in srgb,var(--amber) 12%,var(--surface));border:1px solid color-mix(in srgb,var(--amber) 45%,var(--border));border-left:4px solid var(--amber);border-radius:12px;padding:10px 14px;margin-bottom:12px}
+.access-denied-banner.visible{display:flex}
+.access-denied-title{font-weight:800;color:var(--text)}
+.access-denied-msg{font-size:12.5px;color:var(--text2)}
+#recovery-banner,#firebase-error-banner{display:none}
+#recovery-banner{align-items:center;gap:10px;flex-wrap:wrap;padding:10px var(--sh-pad);background:color-mix(in srgb,var(--amber) 14%,var(--surface));border-bottom:2px solid var(--amber)}
+.fb-err-inner{display:flex;gap:14px;align-items:flex-start;padding:12px var(--sh-pad);background:color-mix(in srgb,var(--red) 14%,var(--surface));border-bottom:2px solid var(--red)}
+.fb-err-content{flex:1;min-width:0}
+.fb-err-title{font-weight:800;color:var(--text);margin-bottom:6px}
+.fb-err-steps{display:flex;flex-direction:column;gap:4px;font-size:12px;color:var(--text2)}
+.fb-err-step{display:flex;gap:8px}
+.fb-err-num{flex:0 0 18px;height:18px;border-radius:50%;display:grid;place-items:center;background:var(--red);color:#fff;font-size:10px;font-weight:800}
+.fb-err-code{font-family:var(--mono);background:rgba(0,0,0,.25);padding:1px 6px;border-radius:4px}
+.other-field{display:none;margin-top:6px}
+.other-field.visible{display:block}
+.upload-progress{display:none;align-items:center;gap:6px;font-size:12px;color:var(--text2)}
+.upload-progress.visible{display:inline-flex}
+.upload-spinner,.loading-spinner{width:14px;height:14px;border:2px solid var(--border2);border-top-color:var(--corp-teal);border-radius:50%;animation:spin .7s linear infinite}
+.loading-spinner{width:36px;height:36px;border-width:3px}
+.saving-spinner{display:none;width:12px;height:12px;border:2px solid var(--border2);border-top-color:var(--corp-teal);border-radius:50%;animation:spin .7s linear infinite}
+.saving-spinner.active{display:inline-block}
+
+/* toasts (the class had no style: messages fell into the page flow at the bottom) */
+.toast-wrap{position:fixed;right:16px;bottom:16px;z-index:12000;display:flex;flex-direction:column;align-items:flex-end;gap:8px;pointer-events:none;max-width:min(420px,calc(100vw - 32px))}
+.toast{pointer-events:auto;background:#10262d;color:#f2faf8;border:1px solid #2f5f6b;border-left:4px solid var(--sh-brand-2);border-radius:10px;padding:10px 14px;font-size:13px;font-weight:600;box-shadow:0 10px 28px rgba(0,0,0,.35);animation:toastIn .2s ease;overflow-wrap:anywhere}
+.toast.error{border-left-color:#ef5350}
+.toast.warn,.toast.warning{border-left-color:#fab219}
+.toast.info{border-left-color:#4aa3ff}
+
+/* ── toolbars, filters and the employee page (classes that had no style) ── */
+.capture-toolbar,.emp-toolbar{display:flex;align-items:center;justify-content:space-between;gap:8px 12px;flex-wrap:wrap;padding:10px 14px;background:var(--surface);border-bottom:2px solid var(--corp-teal)}
+.emp-filters,.filter-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.filters-bar-admin{display:flex;flex-direction:column;gap:8px;padding:10px 14px;background:var(--bg2);border-bottom:1px solid var(--border)}
+.filter-row-label,.filter-lbl{font-size:10.5px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--text3)}
+.emp-count-badge{font-size:11.5px;font-weight:800;color:var(--text2);background:var(--surface2);border:1px solid var(--border);border-radius:999px;padding:2px 10px;white-space:nowrap}
+.cap-kpis{flex-wrap:wrap;gap:8px 14px}
+.cap-kpi{background:var(--surface2);border:1px solid var(--border);border-radius:999px;padding:3px 10px}
+.btn-tpl,label.btn-upload{min-height:30px!important;padding:0 11px!important;font-size:12px!important}
+label.btn-upload{cursor:pointer}
+.form-section-divider{grid-column:1/-1;margin:6px 0 2px;padding-bottom:4px;border-bottom:1px solid var(--border);font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--corp-teal)}
+.st-badge{display:inline-flex;align-items:center;gap:4px;padding:2px 8px;border-radius:999px;font-size:11px;font-weight:700;white-space:nowrap;border:1px solid var(--border);background:var(--surface2);color:var(--text2)}
+.st-inprogress{background:color-mix(in srgb,var(--blue) 14%,transparent);color:var(--text);border-color:color-mix(in srgb,var(--blue) 40%,transparent)}
+.st-waiting{background:color-mix(in srgb,var(--amber) 14%,transparent);color:var(--text);border-color:color-mix(in srgb,var(--amber) 40%,transparent)}
+.st-blocked{background:color-mix(in srgb,var(--red) 16%,transparent);color:var(--text);border-color:color-mix(in srgb,var(--red) 45%,transparent)}
+.st-done{background:color-mix(in srgb,var(--green) 16%,transparent);color:var(--text);border-color:color-mix(in srgb,var(--green) 45%,transparent)}
+.st-cancelled{opacity:.7;text-decoration:line-through}
+.inline-select{font-size:11.5px;padding:3px 22px 3px 7px;border-radius:6px;max-width:100%}
+.inline-select.status-inprog{border-color:var(--blue)}
+.inline-select.status-blocked{border-color:var(--red);color:var(--red)}
+.inline-select.status-waiting{border-color:var(--amber)}
+.activity-log-wrap{overflow:auto}
+.form-grid{gap:12px}
+@media (max-width:700px){ .form-grid{grid-template-columns:1fr} .form-group.third{grid-column:auto} }
+
+/* ── tables: dark heading row in both themes; frozen columns keep their place ── */
+table{font-size:12.5px}
+thead th{color:var(--sh-th-text)}
+.task-table thead th,.task-table thead .f1,.task-table thead .f2,.task-table thead .f3,
+[data-theme="light"] .task-table thead .f1,[data-theme="light"] .task-table thead .f2,[data-theme="light"] .task-table thead .f3{background:var(--sh-th)!important;color:var(--sh-th-text)!important;border-bottom:2px solid var(--sh-brand)!important}
+.task-table thead th{font-size:11px;letter-spacing:.04em}
+.task-table th.f2,.task-table td.f2{font-size:11px}
+.table-wrap{border-radius:0 0 12px 12px}
+.emp-table-wrap{overflow:auto}
+.emp-table th{cursor:pointer}
+.proj-cards-grid{grid-template-columns:repeat(auto-fill,minmax(min(300px,100%),1fr));gap:12px;padding:12px}
+.proj-card{border-radius:12px;background:var(--surface2)}
+
+/* ── dialogs: steady (no slide), so the pickers inside them line up with their fields; fit any screen ── */
+.modal{transform:none!important;width:min(860px,calc(100vw - 24px));max-width:calc(100vw - 24px)}
+.modal-sm .modal{width:min(540px,calc(100vw - 24px))}
+.modal-backdrop{backdrop-filter:none;background:rgba(3,10,12,.6)}
+.modal-hdr{background:linear-gradient(180deg,var(--surface2),var(--surface))}
+.modal-title{font-weight:800}
+@media (max-width:640px){ .modal{width:100vw;max-width:100vw;max-height:100vh;border-radius:0} .modal-body{padding:14px} }
+
+/* ── calendars: one scroll box per calendar — sideways scrollbar always at its bottom, day headings and the hour column stay
+   in view while scrolling; columns never squeeze below a readable width ── */
+.cal-layout{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:14px;margin-bottom:14px;align-items:start}
+@media (max-width:1180px){ .cal-layout{grid-template-columns:minmax(0,1fr)} }
+.cal-person-tabs{padding:8px 12px;gap:6px;flex-wrap:wrap;background:var(--surface);border:1px solid var(--border);border-radius:12px;margin-bottom:8px;align-items:center}
+.cal-person-tab{border-radius:9px;border-bottom:1px solid #33636f;bottom:0;padding:6px 12px}
+.cal-person-tab.active{border-bottom:1px solid var(--sh-brand-2);bottom:0}
+.cal-toolbar{gap:8px;padding:10px 12px}
+.cal-title{color:var(--text);font-size:15px;min-width:140px}
+.cal-view-btns{background:transparent;padding:0;gap:4px}
+.cal-view-btn{min-height:30px;padding:0 12px;font-size:12px}
+.cal-nav-btn{width:auto;height:auto;min-width:32px;border-radius:8px!important;font-size:16px!important}
+.cal-today-btn{min-height:30px;font-size:12px;padding:0 12px}
+#cal-search{min-height:30px;width:150px!important}
+#cal-grid-wrap{overflow:hidden}
+.cal-frame{display:flex;flex-direction:column;height:100%;border:1px solid var(--border);border-radius:10px;overflow:hidden;background:var(--surface)}
+.cal-scroll{flex:1;min-height:0;overflow:auto;position:relative}
+.cal-inner{min-width:var(--cal-min,0px)}
+.cal-head{display:flex;position:sticky;top:0;z-index:8;background:var(--bg2)}
+.cal-corner{position:sticky;left:0;z-index:9;background:var(--bg2)}
+.cal-body{display:flex;overflow:visible}   /* the outer .cal-scroll box scrolls (both ways); an inner scroller would stop the time column from staying in view */
+.cal-gutter{position:sticky;left:0;z-index:7;background:var(--surface)}
+.cal-month-scroll{padding:4px;height:100%;overflow:auto}
+.cal-month-grid{min-width:770px}
+.cal-dow{position:sticky;top:0;z-index:3}
+
+/* ── header fits one row on 1366-px laptops; tools dark like the bar ── */
+.brand-sub{max-width:218px;line-height:1.25;letter-spacing:.02em}
+.header-date{white-space:nowrap;font-size:10.5px}
+.hdr-tools > .btn{background:#173740!important;color:#fff!important;border:1px solid #33636f!important}
+.hdr-tools > .btn:hover{background:#21505c!important;border-color:var(--sh-brand-2)!important}
+#archive-nav-count{background:rgba(255,255,255,.2)!important;color:#fff!important;font-weight:800}
+.nav-tab{padding:6px 11px;font-size:12px}
+.task-table thead th.f1,.task-table thead th.f2{padding-left:6px!important;padding-right:6px!important;letter-spacing:0!important}
+/* toolbars with inline flex rows wrap on phones instead of pushing the page sideways */
+.section-hdr > div[style*="display:flex"],.emp-toolbar > div[style*="display:flex"],.capture-toolbar > div[style*="display:flex"]{flex-wrap:wrap}
+/* the header block stays on top only where there is room for it; on tablets / phones it scrolls away with the page */
+@media (max-width:1100px){ .app-top{position:relative} }
+
+.app-header{column-gap:10px}
+.zoom-btn{font-size:12px!important}
+.hdr-tools{gap:6px}
+.brand-title{font-size:15.5px}
+.header-right{gap:8px}
+.nav-tab{padding:6px 9px}
+.nav-tabs{gap:5px}
+
+</style>
 </body>
 </html>
